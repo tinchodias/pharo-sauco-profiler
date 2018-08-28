@@ -7,7 +7,7 @@ Class {
 	#category : #'SaucoPerfMeter-GT'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #'gt inspector' }
 SPMConvenience class >> gtInspectorCodeListIn: composite title: title display: display [ 
 	^ composite fastTable
 		title: title;
@@ -87,4 +87,9 @@ SPMConvenience class >> ratioIcon: ratio [
 { #category : #ui }
 SPMConvenience class >> ratioTopColor [
 	^ Color red muchDarker
+]
+
+{ #category : #ui }
+SPMConvenience class >> shadowedTextFor: aString [
+	^ EpMorphFactory default stringFor: aString color: EpMorphFactory default softerTextColor
 ]

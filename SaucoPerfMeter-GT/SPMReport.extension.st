@@ -118,15 +118,19 @@ SPMReport >> gtInspectorTallyTreeIn: composite [
 		icon: [ :each | SPMConvenience ratioIcon: each ratio ];
 		sortBlock: [ :a :b | a tally > b tally ];
 		children: [ :each | each children sorted: [ :a :b | a tally > b tally ] ];
-		shouldExpandToLevel: 7;
+		shouldExpandToLevel: 15;
 		column: ''
 			evaluated: [ :each | 
-			'{1} ({2}) [{3}] - {4}'
+			| string |
+			string := '{1} ({2}) [{3}] - {4}'
 				format:
-					{SPMConvenience printPercentage: each percentage.
-					SPMConvenience printAbbreviatedDuration: each time.
-					SPMConvenience printAbbreviatedDuration: each netTime.
-					each methodNode fullName} ]
+					{(SPMConvenience printPercentage: each percentage).
+					(SPMConvenience printAbbreviatedDuration: each time).
+					(SPMConvenience printAbbreviatedDuration: each netTime).
+					each methodNode fullName}.
+			each netTally > 0
+				ifTrue: [ string ]
+				ifFalse: [ SPMConvenience shadowedTextFor: string ] ]
 			width: 5000
 ]
 
