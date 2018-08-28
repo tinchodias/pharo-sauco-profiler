@@ -103,9 +103,12 @@ SPMReport >> gtInspectorTallySunburstIn: composite [
 				weight: [ :each | 
 					each == self
 						ifTrue: [ 1.0 ]
-						ifFalse: [ each ratio ] ].
-			builder hasCenter: false.
-			builder radialSpacing: 0 ]
+						ifFalse: [ each ratio ] ];
+				hasCenter: false;
+				radialSpacing: 0.
+			builder shape
+				if: [ :each | each ~~ self and: [ self shouldShadow: each ] ]
+				fillColor: Color gray ]
 ]
 
 { #category : #'*SaucoPerfMeter-GT' }
@@ -128,9 +131,9 @@ SPMReport >> gtInspectorTallyTreeIn: composite [
 					(SPMConvenience printAbbreviatedDuration: each time).
 					(SPMConvenience printAbbreviatedDuration: each netTime).
 					each methodNode fullName}.
-			each netTally > 0
-				ifTrue: [ string ]
-				ifFalse: [ SPMConvenience shadowedTextFor: string ] ]
+			(self shouldShadow: each)
+				ifFalse: [ string ]
+				ifTrue: [ SPMConvenience shadowedTextFor: string ] ]
 			width: 5000
 ]
 
@@ -142,4 +145,9 @@ SPMReport >> printOn: aStream [
 		nextPut: $(.
 	SPMConvenience printAbbreviatedDuration: self totalTime on: aStream.
 	aStream nextPut: $)
+]
+
+{ #category : #'*SaucoPerfMeter-GT' }
+SPMReport >> shouldShadow: aTallyNode [
+	^ aTallyNode netTally = 0
 ]
