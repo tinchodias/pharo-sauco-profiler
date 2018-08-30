@@ -14,29 +14,31 @@ Class {
 
 { #category : #examples }
 SPMReport class >> exampleASP: aBlock [
-	(self newWithASPOn: aBlock) inspect
+	Smalltalk tools inspector
+		inspect: (self newWithASPOn: aBlock)
+		label: 'Measured with AndreasSystemProfiler'
 ]
 
 { #category : #examples }
-SPMReport class >> exampleBenchFib [
-	self exampleBoth: [ 38 benchFib ]
-]
-
-{ #category : #examples }
-SPMReport class >> exampleBoth: aBlock [
+SPMReport class >> exampleAll: aBlock [
 	self exampleASP: aBlock.
 	self exampleMT: aBlock.
 ]
 
 { #category : #examples }
+SPMReport class >> exampleBenchFib [
+	self exampleAll: [ 38 benchFib ]
+]
+
+{ #category : #examples }
 SPMReport class >> exampleFactorial [
-	self exampleBoth: [ 1000 timesRepeat: [ 1000 factorial ] ]
+	self exampleAll: [ 1000 timesRepeat: [ 1000 factorial ] ]
 ]
 
 { #category : #examples }
 SPMReport class >> exampleForks [
 	self
-		exampleBoth: [ | semaphore numberOfForks |
+		exampleAll: [ | semaphore numberOfForks |
 			numberOfForks := 10.
 			semaphore := Semaphore new.
 			1 to: numberOfForks do: [ :index | 
@@ -46,23 +48,45 @@ SPMReport class >> exampleForks [
 ]
 
 { #category : #examples }
+SPMReport class >> exampleFuelAllIcons [
+	self exampleAll: [ | array |
+		array := FLSerializer serializeToByteArray: Smalltalk ui icons. 
+		FLMaterializer materializeFromByteArray: array ]
+]
+
+{ #category : #examples }
 SPMReport class >> exampleMT: aBlock [
-	(self newWithMessageTallyOn: aBlock) inspect
+	Smalltalk tools inspector
+		inspect: (self newWithMTOn: aBlock)
+		label: 'Measured with MessageTally'
 ]
 
 { #category : #examples }
 SPMReport class >> exampleNeoJson [
-	self exampleBoth: [ NeoJSONTestObject2 benchmark200k ]
+	self exampleAll: [ NeoJSONTestObject2 benchmark200k ]
+]
+
+{ #category : #examples }
+SPMReport class >> exampleRandomNext [
+	self
+		exampleAll: [ | random |
+			random := Random seed: 1.
+			(1 to: 100000) collect: [ :each | random next ] ]
+]
+
+{ #category : #examples }
+SPMReport class >> exampleUUID [
+	self exampleAll: [ (1 to: 100000) collect: [ :each | UUID new ] ]
 ]
 
 { #category : #examples }
 SPMReport class >> exampleWait [
-	self exampleBoth: [ 3 seconds wait ]
+	self exampleAll: [ 3 seconds wait ]
 ]
 
 { #category : #examples }
 SPMReport class >> exampleZincGet [
-	self exampleBoth: [ ZnEasy get: 'http://pharo.org/' ]
+	self exampleAll: [ ZnEasy get: 'http://pharo.org/' ]
 ]
 
 { #category : #convenience }
@@ -70,25 +94,24 @@ SPMReport class >> newWithASPOn: aBlock [
 	| profiler semaphore |
 	semaphore := Semaphore new.
 	profiler := AndreasSystemProfiler new.
-	[profiler startProfiling.
+	[ "We fork just to cut stack trace: the ASP report will start at this method context"
+	profiler startProfiling.
 	aBlock value.
 	profiler stopProfiling.
 	semaphore signal ] fork.
 	semaphore wait.
+	profiler doReport.
 	^ profiler spmAsReport
 ]
 
 { #category : #convenience }
-SPMReport class >> newWithMessageTallyOn: aBlock [
-	| profiler semaphore |
-	semaphore := Semaphore new.
+SPMReport class >> newWithMTOn: aBlock [
+	| profiler |
 	profiler := MessageTally new.
 	profiler reportOtherProcesses: false.
-	[ [ profiler spyEvery: 1 on: aBlock.
-	semaphore signal ] fork.
-	semaphore wait.
+	[ profiler spyEvery: 1 on: aBlock.
 	^ profiler spmAsReport ]
-		ensure: [ profiler close ]
+		ensure: [ "Send of #close must be done at the end because it nilizes the instance variables" profiler close ]
 ]
 
 { #category : #accessing }
