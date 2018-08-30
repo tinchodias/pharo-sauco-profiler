@@ -13,16 +13,10 @@ Class {
 }
 
 { #category : #examples }
-SPMReport class >> exampleASP: aBlock [
-	Smalltalk tools inspector
-		inspect: (self newWithASPOn: aBlock)
-		label: 'Measured with AndreasSystemProfiler'
-]
-
-{ #category : #examples }
 SPMReport class >> exampleAll: aBlock [
-	self exampleASP: aBlock.
-	self exampleMT: aBlock.
+	Smalltalk tools inspector
+		inspect: (self newWithASPOn: aBlock) label: 'Measured with AndreasSystemProfiler';
+		inspect: (self newWithMTOn: aBlock) label: 'Measured with MessageTally'
 ]
 
 { #category : #examples }
@@ -55,13 +49,6 @@ SPMReport class >> exampleFuelAllIcons [
 ]
 
 { #category : #examples }
-SPMReport class >> exampleMT: aBlock [
-	Smalltalk tools inspector
-		inspect: (self newWithMTOn: aBlock)
-		label: 'Measured with MessageTally'
-]
-
-{ #category : #examples }
 SPMReport class >> exampleNeoJson [
 	self exampleAll: [ NeoJSONTestObject2 benchmark200k ]
 ]
@@ -71,7 +58,7 @@ SPMReport class >> exampleRandomNext [
 	self
 		exampleAll: [ | random |
 			random := Random seed: 1.
-			(1 to: 100000) collect: [ :each | random next ] ]
+			(1 to: 500000) collect: [ :each | random next ] ]
 ]
 
 { #category : #examples }
@@ -100,7 +87,6 @@ SPMReport class >> newWithASPOn: aBlock [
 	profiler stopProfiling.
 	semaphore signal ] fork.
 	semaphore wait.
-	profiler doReport.
 	^ profiler spmAsReport
 ]
 
