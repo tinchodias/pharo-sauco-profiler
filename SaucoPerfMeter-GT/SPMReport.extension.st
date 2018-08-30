@@ -19,18 +19,6 @@ SPMReport >> gtInspectorCategoriesIn: composite [
 ]
 
 { #category : #'*SaucoPerfMeter-GT' }
-SPMReport >> gtInspectorCategoriesTreeMapIn: composite [
-	<gtInspectorPresentationOrder: 0.5>
-	^ composite roassal2
-		title: 'Categories tree map';
-		initializeView: [ RTTreeMapBuilder new ];
-		painting: [ :view | 
-			view shape fillColor: Color veryLightGray.
-			view from: self allCategoryNodes using: [ #() ].
-			view weight: [ :each | each ratio ] ]
-]
-
-{ #category : #'*SaucoPerfMeter-GT' }
 SPMReport >> gtInspectorCodeSunburstIn: composite [
 	<gtInspectorPresentationOrder: 0.4>
 	^ composite roassal2
@@ -42,14 +30,39 @@ SPMReport >> gtInspectorCodeSunburstIn: composite [
 				using: [ :each | 
 					(each == self
 						ifTrue: [ self allCategoryNodes ]
-						ifFalse: [ each children ]) select: [:c | c ratio > 0 ] ].
+						ifFalse: [ each children ]) select: [ :c | c ratio > 0 ] ].
 			builder
 				weight: [ :each | 
 					each == self
 						ifTrue: [ 1.0 ]
 						ifFalse: [ each ratio ] ].
 			builder hasCenter: false.
-			builder radialSpacing: 2 ]
+			builder
+				radialSpacing: 5;
+				angularSpacing: 3 ]
+]
+
+{ #category : #'*SaucoPerfMeter-GT' }
+SPMReport >> gtInspectorCodeTreeMapIn: composite [
+	<gtInspectorPresentationOrder: 0.5>
+	^ composite roassal2
+		title: 'Code tree map';
+		initializeView: [ RTTreeMapBuilder new ];
+		painting: [ :builder |
+			builder shape fillColor: [ Color random ].
+			builder inset: 10.
+			builder
+				explore: self
+				using: [ :each | 
+					(each == self
+						ifTrue: [ self allCategoryNodes ]
+						ifFalse: [ each children ]) select: [ :c | c ratio > 0 ] ].
+			builder
+				weight: [ :each | 
+					each == self
+						ifTrue: [ 1.0 ]
+						ifFalse: [ each ratio ] ].
+					 ]
 ]
 
 { #category : #'*SaucoPerfMeter-GT' }
