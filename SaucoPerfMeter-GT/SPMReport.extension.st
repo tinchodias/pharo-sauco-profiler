@@ -25,6 +25,11 @@ SPMReport >> gtInspectorCodeSunburstIn: composite [
 		title: 'Code sunburst';
 		initializeView: [ RTSunburstBuilder new ];
 		painting: [ :builder | 
+			| colorMap |
+			colorMap := SPMCodeColorMap forReport: self.
+			
+			builder shape fillColor: [:each | each == self ifTrue: [ Color black ] ifFalse: [colorMap colorAt: each] ].
+			
 			builder
 				explore: self
 				using: [ :each | 
@@ -49,8 +54,11 @@ SPMReport >> gtInspectorCodeTreeMapIn: composite [
 		title: 'Code tree map';
 		initializeView: [ RTTreeMapBuilder new ];
 		painting: [ :builder |
-			builder shape fillColor: [ Color random ].
-			builder inset: 10.
+			| colorMap |
+			colorMap := SPMCodeColorMap forReport: self.
+			
+			builder shape fillColor: [:each | each == self ifTrue: [ Color black ] ifFalse: [colorMap colorAt: each] ].
+			builder inset: 8.
 			builder
 				explore: self
 				using: [ :each | 
