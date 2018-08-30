@@ -14,14 +14,16 @@ Class {
 
 { #category : #examples }
 SPMReport class >> exampleAll: aBlock [
+	| exampleSelector |
+	exampleSelector := thisContext sender selector storeString.
 	Smalltalk tools inspector
-		inspect: (self newWithASPOn: aBlock) label: 'Measured with AndreasSystemProfiler';
-		inspect: (self newWithMTOn: aBlock) label: 'Measured with MessageTally'
+		inspect: (self newWithASPOn: aBlock) label: exampleSelector , ' - AndreasSystemProfiler';
+		inspect: (self newWithMTOn: aBlock) label: exampleSelector , ' - MessageTally'
 ]
 
 { #category : #examples }
 SPMReport class >> exampleBenchFib [
-	self exampleAll: [ 38 benchFib ]
+	self exampleAll: [ 32 benchFib ]
 ]
 
 { #category : #examples }
