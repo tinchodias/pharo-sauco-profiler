@@ -32,18 +32,6 @@ SPMReport class >> exampleFactorial [
 ]
 
 { #category : #examples }
-SPMReport class >> exampleForks [
-	self
-		exampleAll: [ | semaphore numberOfForks |
-			numberOfForks := 10.
-			semaphore := Semaphore new.
-			1 to: numberOfForks do: [ :index | 
-				[ 35 benchFib.
-				semaphore signal ] forkNamed: 'f' , index asString ].
-			numberOfForks timesRepeat: [ semaphore wait ] ]
-]
-
-{ #category : #examples }
 SPMReport class >> exampleFuelAllIcons [
 	self exampleAll: [ | array |
 		array := FLSerializer serializeToByteArray: Smalltalk ui icons. 
@@ -52,7 +40,7 @@ SPMReport class >> exampleFuelAllIcons [
 
 { #category : #examples }
 SPMReport class >> exampleNeoJson [
-	self exampleAll: [ NeoJSONTestObject2 benchmark200k ]
+	self exampleAll: [ NeoJSONTestObject2 benchmark10k ]
 ]
 
 { #category : #examples }
