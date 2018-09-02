@@ -97,7 +97,7 @@ SPMReport >> allBehaviorNodes [
 
 { #category : #accessing }
 SPMReport >> allCategoryNodes [
-	^ rootTallyNodes flatCollect: #allCategoryNodes
+	^ (rootTallyNodes flatCollect: #allCategoryNodes) sorted: [:a :b | a ratio > b ratio ]
 ]
 
 { #category : #accessing }

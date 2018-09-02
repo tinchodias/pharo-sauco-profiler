@@ -48,7 +48,7 @@ SPMCodeColorMap >> initialize [
 SPMCodeColorMap >> initializeForReport: aReport [
 	| colors categories relevantCount irrelevantCount |
 	self initialize.
-	categories := aReport allCategoryNodes sorted: [:a :b | a ratio > b ratio ].
+	categories := aReport allCategoryNodes.
 	relevantCount := categories count: [ :each | each ratio > 0.03 ]. "TODO"
 	irrelevantCount := categories size - relevantCount.
 	colors := (Color wheel: relevantCount), (Array new: irrelevantCount withAll: Color gray).
