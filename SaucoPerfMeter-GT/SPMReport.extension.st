@@ -114,6 +114,13 @@ SPMReport >> gtInspectorTallySunburstIn: composite [
 		title: 'Tally sunburst';
 		initializeView: [ RTSunburstBuilder new ];
 		painting: [ :builder | 
+			| colorMap |
+			colorMap := SPMCodeColorMap forReport: self.
+			builder shape
+				fillColor: [ :each | 
+					each == self
+						ifTrue: [ Color black ]
+						ifFalse: [ colorMap colorAt: each methodNode ] ].
 			builder
 				explore: self
 				using: [ :each | 
@@ -126,10 +133,7 @@ SPMReport >> gtInspectorTallySunburstIn: composite [
 						ifTrue: [ 1.0 ]
 						ifFalse: [ each ratio ] ];
 				hasCenter: false;
-				radialSpacing: 0.
-			builder shape
-				if: [ :each | each ~~ self and: [ self shouldShadow: each ] ]
-				fillColor: Color gray ]
+				radialSpacing: 0 ]
 ]
 
 { #category : #'*SaucoPerfMeter-GT' }
