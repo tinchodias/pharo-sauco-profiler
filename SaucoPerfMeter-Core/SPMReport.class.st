@@ -27,6 +27,16 @@ SPMReport class >> exampleBenchFib [
 ]
 
 { #category : #examples }
+SPMReport class >> exampleDiskWrite [
+	| baseName |
+	baseName := 'exampleDiskWrite'.
+	self
+		exampleAll: [ (baseName , Time primUTCMicrosecondsClock asString) asFileReference
+				writeStreamDo: [ :stream | 1 to: 200000 do: [ :each | each printOn: stream ] ] ].
+	('.' asFileReference childrenMatching: baseName , '*') do: [ :each | each ensureDelete ]
+]
+
+{ #category : #examples }
 SPMReport class >> exampleFactorial [
 	self exampleAll: [ 1000 timesRepeat: [ 1000 factorial ] ]
 ]
