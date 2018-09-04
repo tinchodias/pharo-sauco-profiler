@@ -80,7 +80,6 @@ SPMBuilder >> registerMethodNodeFor: method [
 			methodNode := SPMMethodNode new
 				name: method selector asString;
 				behaviorNode: behaviorNode;
-				tallyNodes: OrderedCollection new;
 				report: report;
 				yourself.
 			behaviorNode methodNodes add: methodNode.

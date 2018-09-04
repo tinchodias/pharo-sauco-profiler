@@ -57,6 +57,12 @@ SPMMethodNode >> fullName [
 	^ self behaviorName, '>>', name
 ]
 
+{ #category : #initialization }
+SPMMethodNode >> initialize [
+	super initialize.
+	tallyNodes := OrderedCollection new
+]
+
 { #category : #accessing }
 SPMMethodNode >> tallyNodes [
 	^ tallyNodes
