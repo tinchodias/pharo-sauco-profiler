@@ -17,6 +17,7 @@ SPMReport class >> exampleAll: aBlock [
 	| exampleSelector |
 	exampleSelector := thisContext sender selector storeString.
 	Smalltalk tools inspector
+		"inspect: (self newWithASP2On: aBlock) label: exampleSelector , ' - AndreasSystemProfiler2';"
 		inspect: (self newWithASPOn: aBlock) label: exampleSelector , ' - AndreasSystemProfiler';
 		inspect: (self newWithMTOn: aBlock) label: exampleSelector , ' - MessageTally'
 ]
