@@ -89,16 +89,18 @@ SPMReport class >> exampleZincGet [
 
 { #category : #convenience }
 SPMReport class >> newWithASPOn: aBlock [
-	| profiler semaphore |
+	| profiler semaphore spmReport |
 	semaphore := Semaphore new.
 	profiler := AndreasSystemProfiler new.
 	[ "We fork just to cut stack trace: the ASP report will start at this method context"
 	profiler startProfiling.
 	aBlock value.
 	profiler stopProfiling.
+	spmReport := profiler spmAsReport.
 	semaphore signal ] fork.
 	semaphore wait.
-	^ profiler spmAsReport
+"	profiler doReport."
+	^ spmReport
 ]
 
 { #category : #convenience }
