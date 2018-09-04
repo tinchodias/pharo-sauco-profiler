@@ -120,6 +120,11 @@ SPMReport >> allTallyNodes [
 	^ rootTallyNodes flatCollect: #withAllChildren
 ]
 
+{ #category : #converting }
+SPMReport >> asFuelByteArray [
+	^ FLSerializer serializeToByteArray: self
+]
+
 { #category : #accessing }
 SPMReport >> rootTallyNodes [
 	^ rootTallyNodes
