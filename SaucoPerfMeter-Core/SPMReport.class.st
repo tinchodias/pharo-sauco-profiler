@@ -62,6 +62,17 @@ SPMReport class >> exampleRandomNext [
 ]
 
 { #category : #examples }
+SPMReport class >> exampleReadFuelFiles [
+	"Inspect instances of SPMReport stored in fuel files"
+
+	('.' asFileReference childrenMatching: 'profile_report.*.fuel')
+		do: [ :each | 
+			Smalltalk tools inspector
+				inspect: (FLMaterializer materializeFromFileNamed: each pathString)
+				label: each basename ]
+]
+
+{ #category : #examples }
 SPMReport class >> exampleUUID [
 	self exampleAll: [ (1 to: 100000) collect: [ :each | UUID new ] ]
 ]
