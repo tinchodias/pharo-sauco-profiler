@@ -49,7 +49,7 @@ SPMCodeColorMap >> initializeForReport: aReport [
 	| colors categories relevantCount irrelevantCount |
 	self initialize.
 	categories := aReport allCategoryNodes.
-	relevantCount := categories count: [ :each | each ratio > 0.03 ]. "TODO"
+	relevantCount := categories count: [ :each | (aReport isIrrelevantCodeNode: each) not ].
 	irrelevantCount := categories size - relevantCount.
 	colors := (Color wheel: relevantCount), (Array new: irrelevantCount withAll: Color gray).
 	self deepRegister: categories colors: colors.

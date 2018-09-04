@@ -83,31 +83,6 @@ SPMReport >> gtInspectorMethodsIn: composite [
 ]
 
 { #category : #'*SaucoPerfMeter-GT' }
-SPMReport >> gtInspectorTallyListIn: composite [
-"	<gtInspectorPresentationOrder: 0.2>"
-	^ composite fastTable
-		title: 'Tally list';
-		display: [ self allTallyNodes ];
-		icon: [ :each | SPMConvenience ratioIcon: each netRatio ];
-		sortBlock: [ :a :b | a netTally > b netTally ];
-		column: 'Net'
-			evaluated: [ :each | 
-			'{1} [{2}]'
-				format:
-					{SPMConvenience printPercentage: each netPercentage.
-					SPMConvenience printAbbreviatedDuration: each netTime} ]
-			width: 150;
-		column: 'Total'
-			evaluated: [ :each | 
-			'{1} ({2})'
-				format:
-					{SPMConvenience printPercentage: each percentage.
-					SPMConvenience printAbbreviatedDuration: each time} ]
-			width: 150;
-		column: 'Method' evaluated: [ :each | each methodNode fullName ]
-]
-
-{ #category : #'*SaucoPerfMeter-GT' }
 SPMReport >> gtInspectorTallySunburstIn: composite [
 	<gtInspectorPresentationOrder: 0.3>
 	^ composite roassal2
@@ -147,19 +122,17 @@ SPMReport >> gtInspectorTallyTreeIn: composite [
 		sortBlock: [ :a :b | a tally > b tally ];
 		children: [ :each | each children sorted: [ :a :b | a tally > b tally ] ];
 		shouldExpandToLevel: 15;
-		column: ''
-			evaluated: [ :each | 
-			| string |
-			string := '{1} ({2}) [{3}] - {4}'
-				format:
-					{(SPMConvenience printPercentage: each percentage).
-					(SPMConvenience printAbbreviatedDuration: each time).
-					(SPMConvenience printAbbreviatedDuration: each netTime).
-					each methodNode fullName}.
-			(self shouldShadow: each)
-				ifFalse: [ string ]
-				ifTrue: [ SPMConvenience shadowedTextFor: string ] ]
-			width: 5000
+		column: '' evaluated: [ :each | SPMConvenience tallyNodeMorphFor: each ] width: 5000
+]
+
+{ #category : #'*SaucoPerfMeter-GT' }
+SPMReport >> isIrrelevantCodeNode: aNode [
+	^ aNode ratio < 0.03
+]
+
+{ #category : #'*SaucoPerfMeter-GT' }
+SPMReport >> isIrrelevantTallyNode: aNode [
+	^ aNode netRatio < 0.03
 ]
 
 { #category : #'*SaucoPerfMeter-GT' }
@@ -170,9 +143,4 @@ SPMReport >> printOn: aStream [
 		nextPut: $(.
 	SPMConvenience printAbbreviatedDuration: self totalTime on: aStream.
 	aStream nextPut: $)
-]
-
-{ #category : #'*SaucoPerfMeter-GT' }
-SPMReport >> shouldShadow: aTallyNode [
-	^ aTallyNode netTally = 0
 ]

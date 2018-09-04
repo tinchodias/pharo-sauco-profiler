@@ -9,3 +9,8 @@ SPMMethodNode >> gtInspectorSourceIn: composite [
 			title: 'Source in current image';
 			yourself
 ]
+
+{ #category : #'*SaucoPerfMeter-GT' }
+SPMMethodNode >> gtNameTags [
+	^ { self categoryName }
+]

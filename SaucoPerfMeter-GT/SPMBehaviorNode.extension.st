@@ -8,3 +8,8 @@ SPMBehaviorNode >> gtInspectorMethodsIn: composite [
 		title: 'Methods'
 		display: [ self methodNodes ]
 ]
+
+{ #category : #'*SaucoPerfMeter-GT' }
+SPMBehaviorNode >> gtNameTags [
+	^ { self categoryName }
+]
