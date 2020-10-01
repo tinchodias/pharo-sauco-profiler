@@ -19,8 +19,8 @@ Class {
 { #category : #building }
 SPMBuilder >> build [
 	report
-		rootTallyNodes: rootTallyNodes;
-		totalTime: totalTime milliSeconds;
+		initializeNodes: rootTallyNodes
+		totalTime: totalTime milliSeconds
 		totalTally: totalTally
 ]
 

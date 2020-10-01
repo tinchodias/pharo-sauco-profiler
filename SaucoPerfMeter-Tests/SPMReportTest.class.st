@@ -8,15 +8,17 @@ Class {
 		'categoryI',
 		'categoryH',
 		'behaviorQ',
-		'behaviorP'
+		'behaviorP',
+		'report'
 	],
 	#category : #'SaucoPerfMeter-Tests'
 }
 
 { #category : #running }
 SPMReportTest >> behaviorP [
-	^ behaviorP
-		ifNil: [ behaviorP := SPMBehaviorNode new
+	^ behaviorP ifNil: [
+		behaviorP := SPMBehaviorNode new
+				report: report;
 				name: 'P';
 				categoryNode: self categoryH;
 				yourself ]
@@ -24,8 +26,9 @@ SPMReportTest >> behaviorP [
 
 { #category : #running }
 SPMReportTest >> behaviorQ [
-	^ behaviorQ
-		ifNil: [ behaviorQ := SPMBehaviorNode new
+	^ behaviorQ ifNil: [
+		behaviorQ := SPMBehaviorNode new
+				report: report;
 				name: 'Q';
 				categoryNode: self categoryI;
 				yourself ]
@@ -33,24 +36,27 @@ SPMReportTest >> behaviorQ [
 
 { #category : #running }
 SPMReportTest >> categoryH [
-	^ categoryH
-		ifNil: [ categoryH := SPMCategoryNode new
+	^ categoryH ifNil: [
+		categoryH := SPMCategoryNode new
+				report: report;
 				name: 'H';
 				yourself ]
 ]
 
 { #category : #running }
 SPMReportTest >> categoryI [
-	^ categoryI
-		ifNil: [ categoryI := SPMCategoryNode new
+	^ categoryI ifNil: [
+		categoryI := SPMCategoryNode new
+				report: report;
 				name: 'I';
 				yourself ]
 ]
 
 { #category : #running }
 SPMReportTest >> methodX [
-	^ methodX
-		ifNil: [ methodX := SPMMethodNode new
+	^ methodX ifNil: [
+		methodX := SPMMethodNode new
+				report: report;
 				name: 'x';
 				behaviorNode: self behaviorP;
 				yourself ]
@@ -58,8 +64,9 @@ SPMReportTest >> methodX [
 
 { #category : #running }
 SPMReportTest >> methodY [
-	^ methodY
-		ifNil: [ methodY := SPMMethodNode new
+	^ methodY ifNil: [
+		methodY := SPMMethodNode new
+				report: report;
 				name: 'y';
 				behaviorNode: self behaviorP;
 				yourself ]
@@ -67,16 +74,18 @@ SPMReportTest >> methodY [
 
 { #category : #running }
 SPMReportTest >> methodZ [
-	^ methodZ
-		ifNil: [ methodZ := SPMMethodNode new
+	^ methodZ ifNil: [
+		methodZ := SPMMethodNode new
+				report: report;
 				name: 'z';
 				behaviorNode: self behaviorQ;
 				yourself ]
 ]
 
 { #category : #running }
-SPMReportTest >> reportA [
-	| report root |
+SPMReportTest >> setUp [
+	| root |
+	super setUp.
 	report := SPMReport new.
 	root := SPMTallyNode
 		report: report
@@ -113,17 +122,14 @@ SPMReportTest >> reportA [
 										methodNode: self methodZ
 										tally: 100
 										children: #())})})})}.
-	^ report
-		totalTally: 1000;
-		totalTime: 2000 milliSeconds;
-		rootTallyNodes: {root};
-		yourself
+	report
+		initializeNodes: {root}
+		totalTime: 2000 milliSeconds
+		totalTally: 1000
 ]
 
 { #category : #testing }
 SPMReportTest >> testAllBehaviorNodes [
-	| report |
-	report := self reportA.
 	self
 		assert: report allBehaviorNodes asSet
 		equals:
@@ -133,8 +139,6 @@ SPMReportTest >> testAllBehaviorNodes [
 
 { #category : #testing }
 SPMReportTest >> testAllCategoryNodes [
-	| report |
-	report := self reportA.
 	self
 		assert: report allCategoryNodes asSet
 		equals:
@@ -144,8 +148,6 @@ SPMReportTest >> testAllCategoryNodes [
 
 { #category : #testing }
 SPMReportTest >> testAllMethodNodes [
-	| report |
-	report := self reportA.
 	self
 		assert: report allMethodNodes asSet
 		equals:

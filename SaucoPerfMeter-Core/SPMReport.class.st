@@ -139,14 +139,16 @@ SPMReport >> asFuelByteArray [
 	^ FLSerializer serializeToByteArray: self
 ]
 
-{ #category : #accessing }
-SPMReport >> rootTallyNodes [
-	^ rootTallyNodes
+{ #category : #initialization }
+SPMReport >> initializeNodes: aCollection totalTime: aDuration totalTally: anInteger [ 
+	rootTallyNodes := aCollection.
+	totalTime := aDuration.
+	totalTally := anInteger.
 ]
 
 { #category : #accessing }
-SPMReport >> rootTallyNodes: anObject [
-	rootTallyNodes := anObject
+SPMReport >> rootTallyNodes [
+	^ rootTallyNodes
 ]
 
 { #category : #accessing }
@@ -160,16 +162,6 @@ SPMReport >> totalTally [
 ]
 
 { #category : #accessing }
-SPMReport >> totalTally: anObject [
-	totalTally := anObject
-]
-
-{ #category : #accessing }
 SPMReport >> totalTime [
 	^ totalTime
-]
-
-{ #category : #accessing }
-SPMReport >> totalTime: aDuration [
-	totalTime := aDuration
 ]
