@@ -5,7 +5,8 @@ Class {
 	#name : #SPMCodeColorMap,
 	#superclass : #Object,
 	#instVars : [
-		'colorByCodeMap'
+		'colorByCodeMap',
+		'theme'
 	],
 	#category : #'SaucoPerfMeter-GT'
 }
@@ -30,18 +31,21 @@ SPMCodeColorMap >> deepRegister: aCodeCollection colors: colors [
 			| code |
 			code := aCodeCollection at: index.
 			colorByCodeMap at: code put: color.
-			self deepRegister: code children colors: (self gradient: code children size from: color to: color muchDarker) ]
+			self
+				deepRegister: code children
+				colors: (self gradient: code children size from: color to: (color alpha: 0.5)) ]
 ]
 
 { #category : #private }
 SPMCodeColorMap >> gradient: count from: base to: next [
-	^ (1 to: count) collect: [ :each | (base mixed: each / count with: next) darker ]
+	^ (1 to: count) collect: [ :each | (base mixed: each / count with: next) alpha: 0.75 ]
 ]
 
 { #category : #accessing }
 SPMCodeColorMap >> initialize [
 	super initialize.
-	colorByCodeMap := Dictionary new
+	colorByCodeMap := Dictionary new.
+	theme := Smalltalk ui theme.
 ]
 
 { #category : #accessing }
@@ -51,6 +55,6 @@ SPMCodeColorMap >> initializeForReport: aReport [
 	categories := aReport allCategoryNodes.
 	relevantCount := categories count: [ :each | (aReport isIrrelevantCodeNode: each) not ].
 	irrelevantCount := categories size - relevantCount.
-	colors := (Color wheel: relevantCount), (Array new: irrelevantCount withAll: Color gray).
+	colors := (Color wheel: relevantCount), (Array new: irrelevantCount withAll: theme disabledTextColor).
 	self deepRegister: categories colors: colors.
 ]
