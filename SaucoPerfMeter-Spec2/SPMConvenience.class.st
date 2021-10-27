@@ -83,7 +83,7 @@ SPMConvenience class >> printAbbreviatedDuration: aDuration on: stream [
 		(minutes 'm') 
 		(seconds 's') 
 		(asMilliSeconds 'ms') 
-		(asMicroseconds 'μs') 
+		(asMicroseconds 'us') 
 		(asNanoSeconds 'ns')) do: [ :unit |
 		| count |
 		count := aDuration perform: unit first.
