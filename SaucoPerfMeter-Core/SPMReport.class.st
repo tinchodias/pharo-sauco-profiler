@@ -146,6 +146,29 @@ SPMReport >> initializeNodes: aCollection totalTime: aDuration totalTally: anInt
 	totalTally := anInteger.
 ]
 
+{ #category : #testing }
+SPMReport >> isIrrelevantCodeNode: aNode [
+
+	^ aNode ratio < 0.03
+]
+
+{ #category : #testing }
+SPMReport >> isIrrelevantTallyNode: aNode [
+
+	^ aNode netRatio < 0.03
+]
+
+{ #category : #printing }
+SPMReport >> printOn: aStream [
+
+	super printOn: aStream.
+	aStream
+		space;
+		nextPut: $(.
+	SPMConvenience printAbbreviatedDuration: self totalTime on: aStream.
+	aStream nextPut: $)
+]
+
 { #category : #accessing }
 SPMReport >> rootTallyNodes [
 	^ rootTallyNodes

@@ -49,8 +49,8 @@ SPMTallyNode >> children [
 ]
 
 { #category : #accessing }
-SPMTallyNode >> children: anObject [
-	children := anObject
+SPMTallyNode >> children: aCollection [
+	children := aCollection
 ]
 
 { #category : #accessing }
@@ -59,8 +59,8 @@ SPMTallyNode >> methodNode [
 ]
 
 { #category : #accessing }
-SPMTallyNode >> methodNode: anObject [
-	methodNode := anObject
+SPMTallyNode >> methodNode: aSPMMethodNode [
+	methodNode := aSPMMethodNode
 ]
 
 { #category : #accessing }
@@ -88,6 +88,20 @@ SPMTallyNode >> percentage [
 	^ 100.0 * self ratio
 ]
 
+{ #category : #printing }
+SPMTallyNode >> printOn: aStream [
+
+	super printOn: aStream.
+	aStream
+		space;
+		nextPut: $(.
+	SPMConvenience printAbbreviatedDuration: self time on: aStream.
+	aStream
+		nextPutAll: ' - ';
+		nextPutAll: methodNode fullName;
+		nextPut: $)
+]
+
 { #category : #accessing }
 SPMTallyNode >> ratio [
 	^ tally asFloat / self report totalTally
@@ -99,8 +113,8 @@ SPMTallyNode >> report [
 ]
 
 { #category : #accessing }
-SPMTallyNode >> report: anObject [
-	report := anObject
+SPMTallyNode >> report: aSPMReport [
+	report := aSPMReport
 ]
 
 { #category : #accessing }
@@ -109,8 +123,8 @@ SPMTallyNode >> tally [
 ]
 
 { #category : #accessing }
-SPMTallyNode >> tally: anObject [
-	tally := anObject
+SPMTallyNode >> tally: anInteger [
+	tally := anInteger
 ]
 
 { #category : #accessing }
