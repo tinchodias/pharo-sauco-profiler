@@ -35,8 +35,12 @@ SPMConvenience class >> inspectionCodeList: aBuilder items: itemsBlock [
 
 	^ aBuilder newTable
 		items: itemsBlock value;
-		sortBlock: [ :a :b | a netTally > b netTally ];
-		icon: [ :each | self ratioIcon: each ratio ];
+		sortingBlock: [ :a :b | a netTally > b netTally ];
+		addColumn: ((SpImageTableColumn
+			evaluated: [ :each |
+				self ratioIcon: each ratio ]) 
+			beNotExpandable;
+			yourself);
 		addColumn: ((SpStringTableColumn 
 			title: ''
 			evaluated: [ :each | 

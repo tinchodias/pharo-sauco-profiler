@@ -75,7 +75,7 @@ SPMTallyNode >> netRatio [
 
 { #category : #accessing }
 SPMTallyNode >> netTally [
-	^ tally - (children detectSum: #tally)
+	^ tally - (children sum: #tally)
 ]
 
 { #category : #accessing }

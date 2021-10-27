@@ -121,13 +121,15 @@ SPMReport >> inspectionForMethods: aBuilder [
 SPMReport >> inspectionForTallyTree: aBuilder [
 	<inspectorPresentationOrder: 0.1 title: 'Tally tree'>
 
-	^ aBuilder newTreeTable
+	| sortingBlock |
+	sortingBlock := [ :a :b | a tally > b tally ].
+
+	^ aBuilder newTree
 		hideColumnHeaders;
-		roots: self rootTallyNodes;
+		roots: (self rootTallyNodes sorted: sortingBlock);
 		displayIcon: [ :each | SPMConvenience ratioIcon: each ratio ];
 		display: [ :each | SPMConvenience tallyNodeMorphFor: each ];
-		sortBlock: [ :a :b | a tally > b tally ];
-		children: [ :each | each children sorted: [ :a :b | a tally > b tally ] ];
+		children: [ :each | each children sorted: sortingBlock ];
 		expandAll;
 		yourself
 

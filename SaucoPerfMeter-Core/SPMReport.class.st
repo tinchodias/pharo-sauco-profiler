@@ -50,11 +50,6 @@ SPMReport class >> exampleFuelAllIcons [
 ]
 
 { #category : #examples }
-SPMReport class >> exampleNeoJson [
-	self exampleAll: [ NeoJSONTestObject2 benchmark10k ]
-]
-
-{ #category : #examples }
 SPMReport class >> exampleRandomNext [
 	self
 		exampleAll: [ | random |
