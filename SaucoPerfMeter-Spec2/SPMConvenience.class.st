@@ -31,10 +31,10 @@ SPMConvenience class >> codeNameMorphFor: aSPMCodeNode [
 ]
 
 { #category : #'gt inspector' }
-SPMConvenience class >> inspectionCodeList: aBuilder items: itemsBlock [
+SPMConvenience class >> inspectionCodeList: aBuilder items: itemsCollection [
 
 	^ aBuilder newTable
-		items: itemsBlock value;
+		items: itemsCollection asArray; "It doesn't work with Set, for example."
 		sortingBlock: [ :a :b | a netTally > b netTally ];
 		addColumn: ((SpImageTableColumn
 			evaluated: [ :each |
