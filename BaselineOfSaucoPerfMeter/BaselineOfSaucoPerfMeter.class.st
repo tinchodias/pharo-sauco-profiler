@@ -7,13 +7,11 @@ Class {
 { #category : #baselines }
 BaselineOfSaucoPerfMeter >> baseline: spec [
 	<baseline>
+
 	spec
 		for: #common
-		do: [ spec blessing: #baseline.
-			spec
-				baseline: 'Roassal2'
-				with: [ spec repository: 'github://ObjectProfile/Roassal2/src' ].
+		do: [
 			spec package: 'SaucoPerfMeter-Core'.
-			spec package: 'SaucoPerfMeter-GT'.
+			spec package: 'SaucoPerfMeter-Spec2'.
 			spec package: 'SaucoPerfMeter-Tests' ]
 ]
