@@ -47,7 +47,7 @@ SPMConvenience class >> inspectionCodeList: aBuilder items: itemsCollection [
 			'{1} [{2}]'
 				format:
 					{(SPMConvenience printPercentage: each percentage).
-					(SPMConvenience printAbbreviatedDuration: each time)} ])
+					(each report durationPrinter print: each time)} ])
 			width: 150;
 			yourself);
 		addColumn: ((SpStringTableColumn 
@@ -58,41 +58,6 @@ SPMConvenience class >> inspectionCodeList: aBuilder items: itemsCollection [
 		addColumn: (SpStringTableColumn
 			title: 'Tags'
 			evaluated: [ :each | ' ' join: each nameTags ])
-]
-
-{ #category : #printing }
-SPMConvenience class >> printAbbreviatedDuration: aDuration [
-	"Return a String with a human readable representation by:
-	* truncating less significant part
-	* using unit abbreviations 
-	"
-
-	^ String
-		streamContents: [ :stream | self printAbbreviatedDuration: aDuration on: stream ]
-]
-
-{ #category : #printing }
-SPMConvenience class >> printAbbreviatedDuration: aDuration on: stream [
-
-	aDuration negative 
-		ifTrue: [ 
-			stream << '- '. 
-			^ self printAbbreviatedDuration: aDuration abs on: stream ].
-	#( (days 'd') 
-		(hours 'h') 
-		(minutes 'm') 
-		(seconds 's') 
-		(asMilliSeconds 'ms') 
-		(asMicroseconds 'us') 
-		(asNanoSeconds 'ns')) do: [ :unit |
-		| count |
-		count := aDuration perform: unit first.
-		count > 10 
-			ifTrue: [
-				count printWithCommasOn: stream.
-				stream << unit second.
-				^self  ] ].
-	stream << '0ns'
 ]
 
 { #category : #printing }
@@ -132,18 +97,19 @@ SPMConvenience class >> shadowedTextFor: aString [
 
 { #category : #ui }
 SPMConvenience class >> tallyNodeMorphFor: aSPMTallyNode [
+
 	| contents |
-	contents := Array
-		streamContents: [ :stream | 
-			stream
-				nextPut:
-					('{1} ({2})'
-						format:
-							{(SPMConvenience printPercentage: aSPMTallyNode percentage).
-							(SPMConvenience printAbbreviatedDuration: aSPMTallyNode time)}) asMorph.
-			stream nextPut: (self codeNameMorphFor: aSPMTallyNode methodNode).
-			aSPMTallyNode netTally > 0
-				ifTrue: [ stream
-						nextPut: ('[{1} net]' format: {(SPMConvenience printAbbreviatedDuration: aSPMTallyNode netTime)}) asMorph ] ].
+	contents := Array streamContents: [ :stream | 
+
+		stream nextPut: ('{1} ({2})' format: {
+			SPMConvenience printPercentage: aSPMTallyNode percentage.
+			aSPMTallyNode report durationPrinter print: aSPMTallyNode time }) asMorph.
+
+		stream nextPut: (self codeNameMorphFor: aSPMTallyNode methodNode).
+
+		aSPMTallyNode netTally > 0 ifTrue: [
+			stream nextPut: ('[{1} net]' format: {
+				aSPMTallyNode report durationPrinter print: aSPMTallyNode netTime }) asMorph ] ].
+
 	^ EpMorphFactory default rowWithAll: contents
 ]

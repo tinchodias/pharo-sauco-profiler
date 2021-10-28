@@ -95,7 +95,7 @@ SPMTallyNode >> printOn: aStream [
 	aStream
 		space;
 		nextPut: $(.
-	SPMConvenience printAbbreviatedDuration: self time on: aStream.
+	report durationPrinter print: self time on: aStream.
 	aStream
 		nextPutAll: ' - ';
 		nextPutAll: methodNode fullName;

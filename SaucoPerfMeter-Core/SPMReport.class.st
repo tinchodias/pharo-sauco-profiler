@@ -7,7 +7,8 @@ Class {
 	#instVars : [
 		'totalTime',
 		'totalTally',
-		'rootTallyNodes'
+		'rootTallyNodes',
+		'durationPrinter'
 	],
 	#category : #'SaucoPerfMeter-Core'
 }
@@ -134,6 +135,19 @@ SPMReport >> asFuelByteArray [
 	^ FLSerializer serializeToByteArray: self
 ]
 
+{ #category : #accessing }
+SPMReport >> durationPrinter [
+
+	^ durationPrinter ifNil: [ 
+		  durationPrinter := SPMAdaptedDurationPrinter new ]
+]
+
+{ #category : #accessing }
+SPMReport >> durationPrinter: anObject [
+
+	durationPrinter := anObject
+]
+
 { #category : #initialization }
 SPMReport >> initializeNodes: aCollection totalTime: aDuration totalTally: anInteger [ 
 	rootTallyNodes := aCollection.
@@ -147,12 +161,6 @@ SPMReport >> isIrrelevantCodeNode: aNode [
 	^ aNode ratio < 0.03
 ]
 
-{ #category : #testing }
-SPMReport >> isIrrelevantTallyNode: aNode [
-
-	^ aNode netRatio < 0.03
-]
-
 { #category : #printing }
 SPMReport >> printOn: aStream [
 
@@ -160,7 +168,7 @@ SPMReport >> printOn: aStream [
 	aStream
 		space;
 		nextPut: $(.
-	SPMConvenience printAbbreviatedDuration: self totalTime on: aStream.
+	self durationPrinter print: self totalTime on: aStream.
 	aStream nextPut: $)
 ]
 
