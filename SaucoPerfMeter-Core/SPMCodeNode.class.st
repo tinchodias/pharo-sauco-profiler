@@ -23,6 +23,12 @@ SPMCodeNode >> children [
 ]
 
 { #category : #accessing }
+SPMCodeNode >> codeColor [
+
+	^ report colorMap colorAt: self
+]
+
+{ #category : #accessing }
 SPMCodeNode >> fullName [
 	^ self subclassResponsibility
 ]
@@ -31,6 +37,12 @@ SPMCodeNode >> fullName [
 SPMCodeNode >> hasChildren [
 
 	^ self children notEmpty
+]
+
+{ #category : #testing }
+SPMCodeNode >> isRelevant [
+
+	^ (report isIrrelevantCodeNode: self) not
 ]
 
 { #category : #accessing }

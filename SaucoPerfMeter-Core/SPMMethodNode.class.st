@@ -12,6 +12,14 @@ Class {
 }
 
 { #category : #accessing }
+SPMMethodNode >> addTallyNode: aSPMTallyNode [ 
+	"Register aSPMTallyNode and establish the bi-directional knowledge as well."
+
+	tallyNodes add: aSPMTallyNode.
+	aSPMTallyNode methodNode: self
+]
+
+{ #category : #accessing }
 SPMMethodNode >> behaviorName [
 	^ behaviorNode name
 ]

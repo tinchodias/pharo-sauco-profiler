@@ -8,7 +8,7 @@ Class {
 		'colorByCodeMap',
 		'theme'
 	],
-	#category : #'SaucoPerfMeter-Spec2'
+	#category : #'SaucoPerfMeter-Core'
 }
 
 { #category : #'instance creation' }
@@ -53,8 +53,20 @@ SPMCodeColorMap >> initializeForReport: aReport [
 	| colors categories relevantCount irrelevantCount |
 	self initialize.
 	categories := aReport allCategoryNodes.
-	relevantCount := categories count: [ :each | (aReport isIrrelevantCodeNode: each) not ].
+	relevantCount := categories count: [ :each | each isRelevant ].
 	irrelevantCount := categories size - relevantCount.
 	colors := (Color wheel: relevantCount), (Array new: irrelevantCount withAll: theme disabledTextColor).
 	self deepRegister: categories colors: colors.
+]
+
+{ #category : #accessing }
+SPMCodeColorMap >> theme [
+
+	^ theme
+]
+
+{ #category : #accessing }
+SPMCodeColorMap >> theme: aUITheme [
+
+	theme := aUITheme
 ]

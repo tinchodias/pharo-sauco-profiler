@@ -8,7 +8,8 @@ Class {
 		'totalTime',
 		'totalTally',
 		'rootTallyNodes',
-		'durationPrinter'
+		'durationPrinter',
+		'colorMap'
 	],
 	#category : #'SaucoPerfMeter-Core'
 }
@@ -136,6 +137,12 @@ SPMReport >> asFuelByteArray [
 ]
 
 { #category : #accessing }
+SPMReport >> colorMap [
+
+	^ colorMap ifNil: [ colorMap := SPMCodeColorMap forReport: self ]
+]
+
+{ #category : #accessing }
 SPMReport >> durationPrinter [
 
 	^ durationPrinter ifNil: [ 
@@ -159,6 +166,13 @@ SPMReport >> initializeNodes: aCollection totalTime: aDuration totalTally: anInt
 SPMReport >> isIrrelevantCodeNode: aNode [
 
 	^ aNode ratio < 0.03
+]
+
+{ #category : #accessing }
+SPMReport >> methodNodeLeaves [
+
+	^ (self tallyLeaves collect: #methodNode) asSet 
+			sorted: [ :a :b | a netTally > b netTally ]
 ]
 
 { #category : #printing }

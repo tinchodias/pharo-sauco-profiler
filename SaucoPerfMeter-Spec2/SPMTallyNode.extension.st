@@ -55,3 +55,19 @@ SPMTallyNode >> inspectionForSource: aBuilder [
 
 	^ methodNode inspectionForSource: aBuilder
 ]
+
+{ #category : #'*SaucoPerfMeter-Spec2' }
+SPMTallyNode >> relevanceDescription [
+
+	| output |
+	output := '{1} [{2}]' format: { 
+			  (SPMConvenience printPercentage: self percentage).
+			  (report durationPrinter print: self time) }.
+	
+	(self hasChildren and: [ self netTally > 0 ]) ifTrue: [
+		output := output, ' ({1} net)' format: {
+			self report durationPrinter print: self netTime } ].
+
+	^ output
+
+]
