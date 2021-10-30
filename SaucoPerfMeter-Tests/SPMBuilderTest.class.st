@@ -15,7 +15,9 @@ SPMBuilderTest >> testAndreasSystemProfilerAsReport [
 	"Asserts on resulting report"
 	report := profiler spmAsReport.
 	self deny: report isNil.
-	self deny: report rootTallyNodes isEmpty
+	self deny: report rootTallyNodes isEmpty.
+	report rootTallyNodes do: [ :each | 
+		self assert: each parent isNil ].
 ]
 
 { #category : #tests }
@@ -27,5 +29,7 @@ SPMBuilderTest >> testMessageTallyAsReport [
 	"Asserts on resulting report"
 	report := profiler spmAsReport.
 	self deny: report isNil.
-	self deny: report rootTallyNodes isEmpty
+	self deny: report rootTallyNodes isEmpty.
+	report rootTallyNodes do: [ :each | 
+		self assert: each parent isNil ].
 ]

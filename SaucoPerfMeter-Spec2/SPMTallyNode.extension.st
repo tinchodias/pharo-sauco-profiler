@@ -1,6 +1,28 @@
 Extension { #name : #SPMTallyNode }
 
 { #category : #'*SaucoPerfMeter-Spec2' }
+SPMTallyNode >> inspectionForAllParents: aBuilder [
+	<inspectorPresentationOrder: 1.5 title: 'Stack'>
+
+	^ aBuilder newTable
+		items: self withAllParents;
+		addColumn: ((SpImageTableColumn
+			evaluated: [ :each | SPMConvenience ratioIcon: each ratio ]) 
+			beNotExpandable;
+			yourself);
+		addColumn: ((SpStringTableColumn 
+			evaluated: [ :each | each relevanceDescription ])
+			width: 150;
+			yourself);
+		addColumn: ((SpStringTableColumn 
+			title: 'Name'
+			evaluated: [ :each | SPMConvenience codeNameMorphFor: each methodNode ])
+			width: 400;
+			yourself);
+		yourself
+]
+
+{ #category : #'*SaucoPerfMeter-Spec2' }
 SPMTallyNode >> inspectionForBehaviors: aBuilder [
 	<inspectorPresentationOrder: 2 title: 'Behaviors'>
 

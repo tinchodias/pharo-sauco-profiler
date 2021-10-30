@@ -99,28 +99,37 @@ SPMBuilder >> tallyNodeFor: aQSystemTally [
 	"Depth-first"
 	childrenTallyNodes := (aQSystemTally sonsOver: 0)
 		collect: [ :each | self tallyNodeFor: each ].
+
 	tallyNode := SPMTallyNode new
 		tally: aQSystemTally tally;
 		children: childrenTallyNodes;
 		report: report;
 		yourself.
-	"Handle root, which is an unreal tally with method = nil: children are the only important in such case."
-	aQSystemTally method
-		ifNotNil: [ "Ensure existence of category, behavior and method nodes."
-			self registerAllCodeNodesFor: aQSystemTally method.
-			methodNode := methodNodesMapping at: aQSystemTally method.
-			methodNode tallyNodes add: tallyNode.
-			tallyNode methodNode: methodNode ].
+
+	"Handle root, which is an unreal tally with method = nil: 
+	children are the only important in such case."
+	aQSystemTally method ifNotNil: [
+		"Ensure existence of category, behavior and method nodes."
+		self registerAllCodeNodesFor: aQSystemTally method.
+		methodNode := methodNodesMapping at: aQSystemTally method.
+		methodNode addTallyNode: tallyNode ].
+
 	^ tallyNode
 ]
 
 { #category : #accessing }
 SPMBuilder >> tallyRoot: tallyRoot [
+
 	totalTally := tallyRoot tally.
-	"For AndreasSystemProfiler, the received root is a nil>>nil so we just keep it's children."
-	rootTallyNodes := {(self tallyNodeFor: tallyRoot)}.
+	rootTallyNodes := { self tallyNodeFor: tallyRoot }.
+
+	"For AndreasSystemProfiler, the received root is a nil>>nil so we just keep its children."
 	(rootTallyNodes size = 1 and: [ rootTallyNodes anyOne methodNode isNil ])
-		ifTrue: [ rootTallyNodes := rootTallyNodes anyOne children ]
+		ifTrue: [
+			| nodeToDiscard |
+			nodeToDiscard := rootTallyNodes anyOne.
+			rootTallyNodes := nodeToDiscard children.
+			nodeToDiscard children: #() ]
 ]
 
 { #category : #accessing }

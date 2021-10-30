@@ -27,6 +27,12 @@ SPMCodeNode >> fullName [
 	^ self subclassResponsibility
 ]
 
+{ #category : #testing }
+SPMCodeNode >> hasChildren [
+
+	^ self children notEmpty
+]
+
 { #category : #accessing }
 SPMCodeNode >> name [
 	^ name

@@ -1,5 +1,14 @@
 "
 I represent a tree node in the SPMReport.
+
+My collaborators are:
+
+	- methodNode: Represents the method that was observed by the profiler, belonging to a context stack. N:1 relation.
+	- tally: The number of times this method was observed as part of a context stack.
+	- parent: Either nil for root nodes, or another node when I'm a children. See #children:. N:1 relation.
+	- children: A collection of other tally nodes. Obviously, I'm a leaf node when it's empty. 1:N relation.
+	
+
 "
 Class {
 	#name : #SPMTallyNode,
@@ -8,7 +17,8 @@ Class {
 		'methodNode',
 		'tally',
 		'children',
-		'report'
+		'report',
+		'parent'
 	],
 	#category : #'SaucoPerfMeter-Core'
 }
@@ -49,8 +59,23 @@ SPMTallyNode >> children [
 ]
 
 { #category : #accessing }
-SPMTallyNode >> children: aCollection [
-	children := aCollection
+SPMTallyNode >> children: aCollectionOfTallyNodes [
+	"Set the children nodes. We let parents the responsability of keeping the bi-directional relationshipup-to-date (see #parent:)."
+
+	children ifNotNil: [
+		children do: [ :each |
+			each parent: nil ] ].
+
+	children := aCollectionOfTallyNodes.
+
+	aCollectionOfTallyNodes do: [ :each |
+		each parent: self ].
+]
+
+{ #category : #testing }
+SPMTallyNode >> hasChildren [
+
+	^ self children notEmpty
 ]
 
 { #category : #accessing }
@@ -60,6 +85,7 @@ SPMTallyNode >> methodNode [
 
 { #category : #accessing }
 SPMTallyNode >> methodNode: aSPMMethodNode [
+
 	methodNode := aSPMMethodNode
 ]
 
@@ -80,7 +106,22 @@ SPMTallyNode >> netTally [
 
 { #category : #accessing }
 SPMTallyNode >> netTime [
+	"Answer the net time (respect to children time)."
+
 	^ self report totalTime * self netRatio
+]
+
+{ #category : #accessing }
+SPMTallyNode >> parent [
+
+	^ parent
+]
+
+{ #category : #accessing }
+SPMTallyNode >> parent: anotherTallyNodeOrNil [
+	"Set the parent. We let parents the responsability of keeping the bi-directional relationship up-to-date (see #children:)."
+	
+	parent := anotherTallyNodeOrNil
 ]
 
 { #category : #accessing }
@@ -129,10 +170,18 @@ SPMTallyNode >> tally: anInteger [
 
 { #category : #accessing }
 SPMTallyNode >> time [
-	^ self report totalTime * self ratio
+	^ report totalTime * self ratio
 ]
 
 { #category : #accessing }
 SPMTallyNode >> withAllChildren [
 	^ {self}, (children flatCollect: #withAllChildren)
+]
+
+{ #category : #accessing }
+SPMTallyNode >> withAllParents [
+
+	^ parent
+		  ifNil: [ { self } ]
+		  ifNotNil: [ { self } , parent withAllParents ]
 ]
