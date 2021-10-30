@@ -78,6 +78,12 @@ SPMTallyNode >> hasChildren [
 	^ self children notEmpty
 ]
 
+{ #category : #testing }
+SPMTallyNode >> isRelevant [
+
+	^ self ratio >= report minimumRelevantRatio
+]
+
 { #category : #accessing }
 SPMTallyNode >> methodNode [
 	^ methodNode

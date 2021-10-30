@@ -162,17 +162,18 @@ SPMReport >> initializeNodes: aCollection totalTime: aDuration totalTally: anInt
 	totalTally := anInteger.
 ]
 
-{ #category : #testing }
-SPMReport >> isIrrelevantCodeNode: aNode [
-
-	^ aNode ratio < 0.03
-]
-
 { #category : #accessing }
 SPMReport >> methodNodeLeaves [
 
 	^ (self tallyLeaves collect: #methodNode) asSet 
 			sorted: [ :a :b | a netTally > b netTally ]
+]
+
+{ #category : #testing }
+SPMReport >> minimumRelevantRatio [
+	"Answer the minimum ratio for either a tally or a code node to be considered relevant."
+
+	^ 0.03
 ]
 
 { #category : #printing }

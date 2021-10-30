@@ -12,7 +12,8 @@ SPMFlameGraph >> canvasFor: tallyNodes report: aSPMReport [
 	builder
 "		graphWidth: 1000;"
 		leafWeight: #tally;
-		from: tallyNodes using: #children.
+		from: (tallyNodes select: #isRelevant)
+			using: [ :n | n children select: #isRelevant ].
 	builder boxShape
 		cornerRadius: 0.
 	builder build.

@@ -42,7 +42,7 @@ SPMCodeNode >> hasChildren [
 { #category : #testing }
 SPMCodeNode >> isRelevant [
 
-	^ (report isIrrelevantCodeNode: self) not
+	^ self ratio >= report minimumRelevantRatio
 ]
 
 { #category : #accessing }
@@ -51,8 +51,9 @@ SPMCodeNode >> name [
 ]
 
 { #category : #accessing }
-SPMCodeNode >> name: anObject [
-	name := anObject
+SPMCodeNode >> name: aString [
+
+	name := aString
 ]
 
 { #category : #accessing }
@@ -77,7 +78,9 @@ SPMCodeNode >> printOn: aStream [
 
 { #category : #accessing }
 SPMCodeNode >> ratio [
-	^ self netTally asFloat / self report totalTally
+	"Answer the tally (or time) ratio of this node respect to report's total."
+
+	^ self netTally asFloat / report totalTally
 ]
 
 { #category : #accessing }
