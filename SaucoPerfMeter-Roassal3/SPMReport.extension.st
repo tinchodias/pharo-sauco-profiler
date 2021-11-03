@@ -14,9 +14,12 @@ SPMReport >> inspectionCodeSunburstIn: aBuilder [
 { #category : #'*SaucoPerfMeter-Roassal3' }
 SPMReport >> inspectionForFlameGraph: aBuilder [
 	<inspectorPresentationOrder: 0.5 title: 'Flame graph'>
-	
-	^ (aBuilder instantiate: SpRoassal3InspectorPresenter)
-		canvas: (SPMFlameGraph new canvasFor: rootTallyNodes report: self);
-		yourself
 
+	^ (aBuilder instantiate: SpRoassal3InspectorPresenter)
+		  canvas: (SPMFlameGraph new
+				   report: self;
+				   tallyNodes: rootTallyNodes;
+				   build;
+				   canvas);
+		  yourself
 ]

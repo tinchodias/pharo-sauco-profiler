@@ -2,15 +2,19 @@ Class {
 	#name : #SPMFlameGraph,
 	#superclass : #Object,
 	#instVars : [
-		'tallyNodeSelectBlock'
+		'tallyNodeSelectBlock',
+		'builder',
+		'tallyNodes',
+		'report',
+		'borderForBox'
 	],
 	#category : #'SaucoPerfMeter-Roassal3'
 }
 
-{ #category : #building }
-SPMFlameGraph >> addInnerLabelsTo: builder theme: theme [
+{ #category : #private }
+SPMFlameGraph >> addInnerLabels [
+	"Add labels to each rectangle, when they fit inside."	
 
-	"Add labels to rectangles, when they fit inside."	
 	builder shapes do: [ :shape |
 		| location labelBuilder label |
 		location := RSLocation new middle; inner; left; offset: 5@0; yourself.
@@ -19,7 +23,7 @@ SPMFlameGraph >> addInnerLabelsTo: builder theme: theme [
 			wrapStrategy: (RSWrapEllipsisStrategy new wrapMaxWidth: shape width - 10);
 			yourself.
 		
-		labelBuilder labelShape color: (shape model report colorMap labelColorAt: shape model).
+		labelBuilder labelShape color: (report colorMap labelColorAt: shape model).
 		
 		label := labelBuilder shapeFor: shape model methodNode fullName.
 
@@ -30,12 +34,20 @@ SPMFlameGraph >> addInnerLabelsTo: builder theme: theme [
 
 ]
 
-{ #category : #building }
-SPMFlameGraph >> canvasFor: tallyNodes report: aSPMReport [
+{ #category : #private }
+SPMFlameGraph >> borderForBox [
 
-	| builder theme border |
-	theme := aSPMReport colorMap theme.
-	
+	^ borderForBox ifNil: [
+		borderForBox := RSBorder new
+		  width: 0.25;
+		  color: self theme textColor;
+		  yourself ]
+
+]
+
+{ #category : #building }
+SPMFlameGraph >> build [
+
 	builder := RSFlameGraph new.
 	builder
 		gap: 0@2; "Workaround to be more accurate: 
@@ -50,24 +62,69 @@ SPMFlameGraph >> canvasFor: tallyNodes report: aSPMReport [
 	builder build.
 
 	builder shapes
-		addInteraction: (RSPopup text: [ :n | SPMConvenience multipleLineDescriptionFor: n ]);
-		addInteraction: (RSHighlightable new
-			highlightBorder: (RSBorder new width: 2; color: theme secondarySelectionColor);
-			yourself).
+		addInteraction: self popupInteraction;
+		addInteraction: self highlightInteraction.
 
-	border := RSBorder new width: 0.25; color: theme textColor; yourself.
 	builder shapes do: [ :shape | 
 		shape
-			border: border;
+			border: self borderForBox;
 			color: shape model methodNode codeColor ].
 
-	self addInnerLabelsTo: builder theme: theme.
+	self addInnerLabels.
+
+	builder canvas
+		color: self theme backgroundColor;
+		addInteraction: RSCanvasController new
+
+]
+
+{ #category : #accessing }
+SPMFlameGraph >> canvas [
+	"Answerr the RSCanvas that was built previously by sending #build."
 
 	^ builder canvas
-		color: theme backgroundColor;
-		addInteraction: RSCanvasController new;
-		yourself
+]
 
+{ #category : #accessing }
+SPMFlameGraph >> considerAllNodes [
+
+	self tallyNodeSelectBlock: [ :_ | true ]
+]
+
+{ #category : #private }
+SPMFlameGraph >> highlightInteraction [
+
+	^ RSHighlightable new
+		  highlightBorder: (RSBorder new
+				   width: 2;
+				   color: self theme secondarySelectionColor);
+		  yourself
+]
+
+{ #category : #private }
+SPMFlameGraph >> popupInteraction [
+
+	| popup |
+	popup := RSPopup new.
+
+	popup shapeBuilder textBlock: [ :n | 
+		SPMConvenience multipleLineDescriptionFor: n ].
+
+	popup shapeBuilder labelBuilder labelShape color: self theme textColor.
+
+	^ popup
+]
+
+{ #category : #accessing }
+SPMFlameGraph >> report [
+
+	^ report
+]
+
+{ #category : #accessing }
+SPMFlameGraph >> report: aSPMReport [
+
+	report := aSPMReport
 ]
 
 { #category : #accessing }
@@ -80,4 +137,22 @@ SPMFlameGraph >> tallyNodeSelectBlock [
 SPMFlameGraph >> tallyNodeSelectBlock: aUnaryBlockClosure [
 
 	tallyNodeSelectBlock := aUnaryBlockClosure
+]
+
+{ #category : #accessing }
+SPMFlameGraph >> tallyNodes [
+
+	^ tallyNodes
+]
+
+{ #category : #accessing }
+SPMFlameGraph >> tallyNodes: aCollectionOfSPMTallyNodes [
+
+	tallyNodes := aCollectionOfSPMTallyNodes
+]
+
+{ #category : #private }
+SPMFlameGraph >> theme [
+
+	^ report colorMap theme
 ]

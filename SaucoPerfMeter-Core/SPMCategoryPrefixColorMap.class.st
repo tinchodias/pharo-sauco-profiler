@@ -35,7 +35,7 @@ SPMCategoryPrefixColorMap >> initialize [
 	super initialize.
 
 	colorAssociations := #().
-	defaultColor := Color veryDarkGray "theme textColor alpha: 0.1.".
+	defaultColor := theme baseColor.
 
 ]
 

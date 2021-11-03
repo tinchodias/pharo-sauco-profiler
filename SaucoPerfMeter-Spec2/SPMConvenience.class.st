@@ -60,8 +60,8 @@ SPMConvenience class >> inspectionCodeList: aBuilder items: itemsCollection [
 SPMConvenience class >> multipleLineDescriptionFor: aSPMTallyNode [ 
 
 	^ '{1}
-Method: {2}
-Tags: {3}' format: {
+Method: 		{2}
+Category: 	{3}' format: {
 		aSPMTallyNode relevanceDescription.
 		aSPMTallyNode methodNode fullName.
 		aSPMTallyNode methodNode nameTags asCommaString.
