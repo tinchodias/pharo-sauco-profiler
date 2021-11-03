@@ -1,16 +1,16 @@
-Extension { #name : #SPMCategoryNode }
+Extension { #name : #SaCategoryNode }
 
 { #category : #'*SaucoPerfMeter-Spec2' }
-SPMCategoryNode >> inspectionForBehaviors: aBuilder [
+SaCategoryNode >> inspectionForBehaviors: aBuilder [
 	<inspectorPresentationOrder: 0 title: 'Behaviors'>
 
-	^ SPMConvenience
+	^ SaConvenience
 		inspectionCodeList: aBuilder
 		items: self behaviorNodes
 ]
 
 { #category : #'*SaucoPerfMeter-Spec2' }
-SPMCategoryNode >> nameTags [
+SaCategoryNode >> nameTags [
 
 	^ #(  )
 ]

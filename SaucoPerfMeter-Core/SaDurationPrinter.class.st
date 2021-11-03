@@ -3,20 +3,20 @@ I know how to convert a Duration to a String.
 
 "
 Class {
-	#name : #SPMDurationPrinter,
+	#name : #SaDurationPrinter,
 	#superclass : #Object,
 	#category : #'SaucoPerfMeter-Core'
 }
 
 { #category : #printing }
-SPMDurationPrinter >> print: aDuration [
+SaDurationPrinter >> print: aDuration [
 
 	^ String streamContents: [ :stream | 
 		  self print: aDuration on: stream ]
 ]
 
 { #category : #printing }
-SPMDurationPrinter >> print: aDuration on: stream [
+SaDurationPrinter >> print: aDuration on: stream [
 
 	^ self subclassResponsibility
 ]

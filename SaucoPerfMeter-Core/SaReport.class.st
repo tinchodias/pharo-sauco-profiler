@@ -2,7 +2,7 @@
 I represent a report of a profiling execution.
 "
 Class {
-	#name : #SPMReport,
+	#name : #SaReport,
 	#superclass : #Object,
 	#instVars : [
 		'totalTime',
@@ -15,7 +15,7 @@ Class {
 }
 
 { #category : #examples }
-SPMReport class >> exampleAll: aBlock [
+SaReport class >> exampleAll: aBlock [
 	| exampleSelector |
 	exampleSelector := thisContext sender selector storeString.
 	Smalltalk tools inspector
@@ -25,12 +25,12 @@ SPMReport class >> exampleAll: aBlock [
 ]
 
 { #category : #examples }
-SPMReport class >> exampleBenchFib [
+SaReport class >> exampleBenchFib [
 	self exampleAll: [ 32 benchFib ]
 ]
 
 { #category : #examples }
-SPMReport class >> exampleDiskWrite [
+SaReport class >> exampleDiskWrite [
 	| baseName |
 	baseName := 'exampleDiskWrite'.
 	self
@@ -40,19 +40,19 @@ SPMReport class >> exampleDiskWrite [
 ]
 
 { #category : #examples }
-SPMReport class >> exampleFactorial [
+SaReport class >> exampleFactorial [
 	self exampleAll: [ 1000 timesRepeat: [ 1000 factorial ] ]
 ]
 
 { #category : #examples }
-SPMReport class >> exampleFuelAllIcons [
+SaReport class >> exampleFuelAllIcons [
 	self exampleAll: [ | array |
 		array := FLSerializer serializeToByteArray: Smalltalk ui icons. 
 		FLMaterializer materializeFromByteArray: array ]
 ]
 
 { #category : #examples }
-SPMReport class >> exampleRandomNext [
+SaReport class >> exampleRandomNext [
 	self
 		exampleAll: [ | random |
 			random := Random seed: 1.
@@ -60,8 +60,8 @@ SPMReport class >> exampleRandomNext [
 ]
 
 { #category : #examples }
-SPMReport class >> exampleReadFuelFiles [
-	"Inspect instances of SPMReport stored in fuel files"
+SaReport class >> exampleReadFuelFiles [
+	"Inspect instances of SaReport stored in fuel files"
 
 	('.' asFileReference childrenMatching: 'profile_report.*.fuel')
 		do: [ :each | 
@@ -71,119 +71,119 @@ SPMReport class >> exampleReadFuelFiles [
 ]
 
 { #category : #examples }
-SPMReport class >> exampleUUID [
+SaReport class >> exampleUUID [
 	self exampleAll: [ (1 to: 100000) collect: [ :each | UUID new ] ]
 ]
 
 { #category : #examples }
-SPMReport class >> exampleWait [
+SaReport class >> exampleWait [
 	self exampleAll: [ 3 seconds wait ]
 ]
 
 { #category : #examples }
-SPMReport class >> exampleZincGet [
+SaReport class >> exampleZincGet [
 	self exampleAll: [ ZnEasy get: 'http://pharo.org/' ]
 ]
 
 { #category : #convenience }
-SPMReport class >> newWithASPOn: aBlock [
-	| profiler semaphore spmReport |
+SaReport class >> newWithASPOn: aBlock [
+	| profiler semaphore saucoReport |
 	semaphore := Semaphore new.
 	profiler := AndreasSystemProfiler new.
 	[ "We fork just to cut stack trace: the ASP report will start at this method context"
 	profiler startProfiling.
 	aBlock value.
 	profiler stopProfiling.
-	spmReport := profiler spmAsReport.
+	saucoReport := profiler saucoAsReport.
 	semaphore signal ] fork.
 	semaphore wait.
 "	profiler doReport."
-	^ spmReport
+	^ saucoReport
 ]
 
 { #category : #convenience }
-SPMReport class >> newWithMTOn: aBlock [
+SaReport class >> newWithMTOn: aBlock [
 	| profiler |
 	profiler := MessageTally new.
 	profiler reportOtherProcesses: false.
 	[ profiler spyEvery: 1 on: aBlock.
-	^ profiler spmAsReport ]
+	^ profiler saucoAsReport ]
 		ensure: [ "Send of #close must be done at the end because it nilizes the instance variables" profiler close ]
 ]
 
 { #category : #accessing }
-SPMReport >> allBehaviorNodes [
+SaReport >> allBehaviorNodes [
 	^ rootTallyNodes flatCollect: #allBehaviorNodes
 ]
 
 { #category : #accessing }
-SPMReport >> allCategoryNodes [
+SaReport >> allCategoryNodes [
 	^ (rootTallyNodes flatCollect: #allCategoryNodes) sorted: [:a :b | a ratio > b ratio ]
 ]
 
 { #category : #accessing }
-SPMReport >> allMethodNodes [
+SaReport >> allMethodNodes [
 	^ rootTallyNodes flatCollect: #allMethodNodes
 ]
 
 { #category : #accessing }
-SPMReport >> allTallyNodes [
+SaReport >> allTallyNodes [
 	^ rootTallyNodes flatCollect: #withAllChildren
 ]
 
 { #category : #converting }
-SPMReport >> asFuelByteArray [
+SaReport >> asFuelByteArray [
 	^ FLSerializer serializeToByteArray: self
 ]
 
 { #category : #accessing }
-SPMReport >> colorMap [
+SaReport >> colorMap [
 
-	^ colorMap ifNil: [ colorMap := SPMCodeColorMap forReport: self ]
+	^ colorMap ifNil: [ colorMap := SaCodeColorMap forReport: self ]
 ]
 
 { #category : #accessing }
-SPMReport >> colorMap: aSPMColorMap [
+SaReport >> colorMap: aSaColorMap [
 
-	colorMap := aSPMColorMap
+	colorMap := aSaColorMap
 ]
 
 { #category : #accessing }
-SPMReport >> durationPrinter [
+SaReport >> durationPrinter [
 
 	^ durationPrinter ifNil: [ 
-		  durationPrinter := SPMAdaptedDurationPrinter new ]
+		  durationPrinter := SaAdaptedDurationPrinter new ]
 ]
 
 { #category : #accessing }
-SPMReport >> durationPrinter: anObject [
+SaReport >> durationPrinter: anObject [
 
 	durationPrinter := anObject
 ]
 
 { #category : #initialization }
-SPMReport >> initializeNodes: aCollection totalTime: aDuration totalTally: anInteger [ 
+SaReport >> initializeNodes: aCollection totalTime: aDuration totalTally: anInteger [ 
 	rootTallyNodes := aCollection.
 	totalTime := aDuration.
 	totalTally := anInteger.
 ]
 
 { #category : #accessing }
-SPMReport >> methodNodeLeaves [
+SaReport >> methodNodeLeaves [
 
 	^ (self tallyLeaves collect: #methodNode) asSet 
 			sorted: [ :a :b | a netTally > b netTally ]
 ]
 
 { #category : #testing }
-SPMReport >> minimumRelevantRatio [
+SaReport >> minimumRelevantRatio [
 	"Answer the minimum ratio for either a tally or a code node to be considered relevant."
 
 	^ 0.03
 ]
 
 { #category : #printing }
-SPMReport >> printOn: aStream [
+SaReport >> printOn: aStream [
 
 	super printOn: aStream.
 	aStream
@@ -194,21 +194,21 @@ SPMReport >> printOn: aStream [
 ]
 
 { #category : #accessing }
-SPMReport >> rootTallyNodes [
+SaReport >> rootTallyNodes [
 	^ rootTallyNodes
 ]
 
 { #category : #accessing }
-SPMReport >> tallyLeaves [
+SaReport >> tallyLeaves [
 	^ rootTallyNodes flatCollect: #allLeaves
 ]
 
 { #category : #accessing }
-SPMReport >> totalTally [
+SaReport >> totalTally [
 	^ totalTally
 ]
 
 { #category : #accessing }
-SPMReport >> totalTime [
+SaReport >> totalTime [
 	^ totalTime
 ]

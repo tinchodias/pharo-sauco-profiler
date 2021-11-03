@@ -1,5 +1,5 @@
 "
-I represent a tree node in the SPMReport.
+I represent a tree node in the SaReport.
 
 My collaborators are:
 
@@ -11,7 +11,7 @@ My collaborators are:
 
 "
 Class {
-	#name : #SPMTallyNode,
+	#name : #SaTallyNode,
 	#superclass : #Object,
 	#instVars : [
 		'methodNode',
@@ -24,48 +24,48 @@ Class {
 }
 
 { #category : #'instance creation' }
-SPMTallyNode class >> report: aSPMReport methodNode: aSPMMethodNode tally: anInteger children: aSPMTallyNode [
+SaTallyNode class >> report: aSaReport methodNode: aSaMethodNode tally: anInteger children: aSaTallyNode [
 	^ self new
-		report: aSPMReport;
-		methodNode: aSPMMethodNode;
+		report: aSaReport;
+		methodNode: aSaMethodNode;
 		tally: anInteger;
-		children: aSPMTallyNode;
+		children: aSaTallyNode;
 		yourself
 ]
 
 { #category : #accessing }
-SPMTallyNode >> allBehaviorNodes [
+SaTallyNode >> allBehaviorNodes [
 	^ self allMethodNodes collect: [ :each | each behaviorNode ] as: Set
 ]
 
 { #category : #accessing }
-SPMTallyNode >> allCategoryNodes [
+SaTallyNode >> allCategoryNodes [
 	^ self allBehaviorNodes collect: [ :each | each categoryNode ] as: Set
 ]
 
 { #category : #accessing }
-SPMTallyNode >> allLeaves [
+SaTallyNode >> allLeaves [
 	^ children ifEmpty: [ {self} ] ifNotEmpty: [ children flatCollect: #allLeaves ]
 ]
 
 { #category : #accessing }
-SPMTallyNode >> allMethodNodes [
+SaTallyNode >> allMethodNodes [
 	^ self withAllChildren collect: [ :each | each methodNode ] as: Set
 ]
 
 { #category : #accessing }
-SPMTallyNode >> categoryName [
+SaTallyNode >> categoryName [
 
 	^ methodNode categoryName
 ]
 
 { #category : #accessing }
-SPMTallyNode >> children [
+SaTallyNode >> children [
 	^ children
 ]
 
 { #category : #accessing }
-SPMTallyNode >> children: aCollectionOfTallyNodes [
+SaTallyNode >> children: aCollectionOfTallyNodes [
 	"Set the children nodes. We let parents the responsability of keeping the bi-directional relationshipup-to-date (see #parent:)."
 
 	children ifNotNil: [
@@ -79,70 +79,70 @@ SPMTallyNode >> children: aCollectionOfTallyNodes [
 ]
 
 { #category : #testing }
-SPMTallyNode >> hasChildren [
+SaTallyNode >> hasChildren [
 
 	^ self children notEmpty
 ]
 
 { #category : #testing }
-SPMTallyNode >> isRelevant [
+SaTallyNode >> isRelevant [
 
 	^ self ratio >= report minimumRelevantRatio
 ]
 
 { #category : #accessing }
-SPMTallyNode >> methodNode [
+SaTallyNode >> methodNode [
 	^ methodNode
 ]
 
 { #category : #accessing }
-SPMTallyNode >> methodNode: aSPMMethodNode [
+SaTallyNode >> methodNode: aSaMethodNode [
 
-	methodNode := aSPMMethodNode
+	methodNode := aSaMethodNode
 ]
 
 { #category : #accessing }
-SPMTallyNode >> netPercentage [
+SaTallyNode >> netPercentage [
 	^ 100.0 * self netRatio
 ]
 
 { #category : #accessing }
-SPMTallyNode >> netRatio [
+SaTallyNode >> netRatio [
 	^ self netTally asFloat / self report totalTally
 ]
 
 { #category : #accessing }
-SPMTallyNode >> netTally [
+SaTallyNode >> netTally [
 	^ tally - (children sum: #tally)
 ]
 
 { #category : #accessing }
-SPMTallyNode >> netTime [
+SaTallyNode >> netTime [
 	"Answer the net time (respect to children time)."
 
 	^ self report totalTime * self netRatio
 ]
 
 { #category : #accessing }
-SPMTallyNode >> parent [
+SaTallyNode >> parent [
 
 	^ parent
 ]
 
 { #category : #accessing }
-SPMTallyNode >> parent: anotherTallyNodeOrNil [
+SaTallyNode >> parent: anotherTallyNodeOrNil [
 	"Set the parent. We let parents the responsability of keeping the bi-directional relationship up-to-date (see #children:)."
 	
 	parent := anotherTallyNodeOrNil
 ]
 
 { #category : #accessing }
-SPMTallyNode >> percentage [
+SaTallyNode >> percentage [
 	^ 100.0 * self ratio
 ]
 
 { #category : #printing }
-SPMTallyNode >> printOn: aStream [
+SaTallyNode >> printOn: aStream [
 
 	super printOn: aStream.
 	aStream
@@ -156,42 +156,42 @@ SPMTallyNode >> printOn: aStream [
 ]
 
 { #category : #accessing }
-SPMTallyNode >> ratio [
+SaTallyNode >> ratio [
 	^ tally asFloat / self report totalTally
 ]
 
 { #category : #accessing }
-SPMTallyNode >> report [
+SaTallyNode >> report [
 	^ report
 ]
 
 { #category : #accessing }
-SPMTallyNode >> report: aSPMReport [
-	report := aSPMReport
+SaTallyNode >> report: aSaReport [
+	report := aSaReport
 ]
 
 { #category : #accessing }
-SPMTallyNode >> tally [
+SaTallyNode >> tally [
 	^ tally
 ]
 
 { #category : #accessing }
-SPMTallyNode >> tally: anInteger [
+SaTallyNode >> tally: anInteger [
 	tally := anInteger
 ]
 
 { #category : #accessing }
-SPMTallyNode >> time [
+SaTallyNode >> time [
 	^ report totalTime * self ratio
 ]
 
 { #category : #accessing }
-SPMTallyNode >> withAllChildren [
+SaTallyNode >> withAllChildren [
 	^ {self}, (children flatCollect: #withAllChildren)
 ]
 
 { #category : #accessing }
-SPMTallyNode >> withAllParents [
+SaTallyNode >> withAllParents [
 
 	^ parent
 		  ifNil: [ { self } ]

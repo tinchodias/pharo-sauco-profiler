@@ -1,9 +1,9 @@
 "
-I represent a category in the SPMReport.
+I represent a category in the SaReport.
 "
 Class {
-	#name : #SPMCategoryNode,
-	#superclass : #SPMCodeNode,
+	#name : #SaCategoryNode,
+	#superclass : #SaCodeNode,
 	#instVars : [
 		'behaviorNodes'
 	],
@@ -11,43 +11,43 @@ Class {
 }
 
 { #category : #accessing }
-SPMCategoryNode >> addBehavior: aBehaviorNode [
+SaCategoryNode >> addBehavior: aBehaviorNode [
 	behaviorNodes add: aBehaviorNode
 ]
 
 { #category : #accessing }
-SPMCategoryNode >> behaviorNodes [
+SaCategoryNode >> behaviorNodes [
 	^ behaviorNodes
 ]
 
 { #category : #accessing }
-SPMCategoryNode >> behaviorNodes: anObject [
+SaCategoryNode >> behaviorNodes: anObject [
 	behaviorNodes := anObject
 ]
 
 { #category : #accessing }
-SPMCategoryNode >> calculatedNetTally [
+SaCategoryNode >> calculatedNetTally [
 	^ behaviorNodes inject: 0 into: [ :sum :each | sum + each netTally ]
 ]
 
 { #category : #accessing }
-SPMCategoryNode >> categoryName [
+SaCategoryNode >> categoryName [
 	
 	^ name
 ]
 
 { #category : #accessing }
-SPMCategoryNode >> children [
+SaCategoryNode >> children [
 	^ behaviorNodes
 ]
 
 { #category : #accessing }
-SPMCategoryNode >> fullName [
+SaCategoryNode >> fullName [
 	^ name
 ]
 
 { #category : #initialization }
-SPMCategoryNode >> initialize [
+SaCategoryNode >> initialize [
 	super initialize.
 	behaviorNodes := OrderedCollection new
 ]

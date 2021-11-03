@@ -8,13 +8,13 @@ My algorithm to write has this criteria:
 
 "
 Class {
-	#name : #SPMAdaptedDurationPrinter,
-	#superclass : #SPMDurationPrinter,
+	#name : #SaAdaptedDurationPrinter,
+	#superclass : #SaDurationPrinter,
 	#category : #'SaucoPerfMeter-Core'
 }
 
 { #category : #printing }
-SPMAdaptedDurationPrinter >> print: aDuration on: stream [
+SaAdaptedDurationPrinter >> print: aDuration on: stream [
 	"Write a short human readable representation by:
 		* truncating less significant part
 		* using unit abbreviations 

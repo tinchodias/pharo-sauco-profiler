@@ -1,5 +1,5 @@
 Class {
-	#name : #SPMColorMap,
+	#name : #SaColorMap,
 	#superclass : #Object,
 	#instVars : [
 		'theme'
@@ -8,32 +8,32 @@ Class {
 }
 
 { #category : #accessing }
-SPMColorMap >> colorAt: aSPMCodeNode [
+SaColorMap >> colorAt: aSaCodeNode [
 
 	^ self subclassResponsibility
 ]
 
 { #category : #initialization }
-SPMColorMap >> initialize [
+SaColorMap >> initialize [
 
 	super initialize.
 	theme := Smalltalk ui theme.
 ]
 
 { #category : #accessing }
-SPMColorMap >> labelColorAt: aSPMCodeNode [
+SaColorMap >> labelColorAt: aSaCodeNode [
 
 	^ self theme textColor
 ]
 
 { #category : #accessing }
-SPMColorMap >> theme [
+SaColorMap >> theme [
 
 	^ theme
 ]
 
 { #category : #accessing }
-SPMColorMap >> theme: aUITheme [
+SaColorMap >> theme: aUITheme [
 
 	theme := aUITheme
 ]

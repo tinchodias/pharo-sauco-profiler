@@ -1,7 +1,7 @@
-Extension { #name : #SPMCategoryPrefixColorMap }
+Extension { #name : #SaCategoryPrefixColorMap }
 
 { #category : #'*SaucoPerfMeter-Spec2' }
-SPMCategoryPrefixColorMap >> inspectionForColorAssociations: aBuilder [
+SaCategoryPrefixColorMap >> inspectionForColorAssociations: aBuilder [
 	<inspectorPresentationOrder: 1 title: 'Colors'>
 
 	^ aBuilder newTable

@@ -1,8 +1,8 @@
 "
-I help to build instances of SPMReport from instances of AndreasSystemProfiler or MessageTally.
+I help to build instances of SaReport from instances of AndreasSystemProfiler or MessageTally.
 "
 Class {
-	#name : #SPMBuilder,
+	#name : #SaBuilder,
 	#superclass : #Object,
 	#instVars : [
 		'behaviorNodesMapping',
@@ -17,7 +17,7 @@ Class {
 }
 
 { #category : #building }
-SPMBuilder >> build [
+SaBuilder >> build [
 	report
 		initializeNodes: rootTallyNodes
 		totalTime: totalTime milliSeconds
@@ -25,16 +25,16 @@ SPMBuilder >> build [
 ]
 
 { #category : #initialization }
-SPMBuilder >> initialize [
+SaBuilder >> initialize [
 	super initialize.
 	categoryNodesMapping := IdentityDictionary new.
 	behaviorNodesMapping := IdentityDictionary new.
 	methodNodesMapping := IdentityDictionary new.
-	report := SPMReport new
+	report := SaReport new
 ]
 
 { #category : #'registering nodes' }
-SPMBuilder >> registerAllCodeNodesFor: method [
+SaBuilder >> registerAllCodeNodesFor: method [
 	"Ensures that code nodes at all levels are registered."
 
 	self registerCategoryNodeFor: method.
@@ -43,14 +43,14 @@ SPMBuilder >> registerAllCodeNodesFor: method [
 ]
 
 { #category : #'registering nodes' }
-SPMBuilder >> registerBehaviorNodeFor: method [
+SaBuilder >> registerBehaviorNodeFor: method [
 	| behavior |
 	behavior := method origin.
 	behaviorNodesMapping
 		at: behavior
 		ifAbsentPut: [ | categoryNode behaviorNode |
 			categoryNode := categoryNodesMapping at: behavior category.
-			behaviorNode := SPMBehaviorNode new
+			behaviorNode := SaBehaviorNode new
 				name: behavior name asString;
 				categoryNode: categoryNode;
 				report: report;
@@ -60,24 +60,24 @@ SPMBuilder >> registerBehaviorNodeFor: method [
 ]
 
 { #category : #'registering nodes' }
-SPMBuilder >> registerCategoryNodeFor: method [
+SaBuilder >> registerCategoryNodeFor: method [
 	| category |
 	category := method origin category.
 	categoryNodesMapping
 		at: category
-		ifAbsentPut: [ SPMCategoryNode new
+		ifAbsentPut: [ SaCategoryNode new
 				name: category asString;
 				report: report;
 				yourself ]
 ]
 
 { #category : #'registering nodes' }
-SPMBuilder >> registerMethodNodeFor: method [
+SaBuilder >> registerMethodNodeFor: method [
 	methodNodesMapping
 		at: method
 		ifAbsentPut: [ | behaviorNode methodNode |
 			behaviorNode := behaviorNodesMapping at: method origin.
-			methodNode := SPMMethodNode new
+			methodNode := SaMethodNode new
 				name: method selector asString;
 				behaviorNode: behaviorNode;
 				report: report;
@@ -87,12 +87,12 @@ SPMBuilder >> registerMethodNodeFor: method [
 ]
 
 { #category : #accessing }
-SPMBuilder >> report [
+SaBuilder >> report [
 	^ report
 ]
 
 { #category : #visiting }
-SPMBuilder >> tallyNodeFor: aQSystemTally [
+SaBuilder >> tallyNodeFor: aQSystemTally [
 	"Answers a new tally node for the argument. Important: It also registers code nodes."
 
 	| childrenTallyNodes methodNode tallyNode |
@@ -100,7 +100,7 @@ SPMBuilder >> tallyNodeFor: aQSystemTally [
 	childrenTallyNodes := (aQSystemTally sonsOver: 0)
 		collect: [ :each | self tallyNodeFor: each ].
 
-	tallyNode := SPMTallyNode new
+	tallyNode := SaTallyNode new
 		tally: aQSystemTally tally;
 		children: childrenTallyNodes;
 		report: report;
@@ -118,7 +118,7 @@ SPMBuilder >> tallyNodeFor: aQSystemTally [
 ]
 
 { #category : #accessing }
-SPMBuilder >> tallyRoot: tallyRoot [
+SaBuilder >> tallyRoot: tallyRoot [
 
 	totalTally := tallyRoot tally.
 	rootTallyNodes := { self tallyNodeFor: tallyRoot }.
@@ -133,6 +133,6 @@ SPMBuilder >> tallyRoot: tallyRoot [
 ]
 
 { #category : #accessing }
-SPMBuilder >> totalTime: aNumber [
+SaBuilder >> totalTime: aNumber [
 	totalTime := aNumber
 ]

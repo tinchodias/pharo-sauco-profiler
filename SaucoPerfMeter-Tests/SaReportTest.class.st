@@ -1,11 +1,11 @@
 Class {
-	#name : #SPMReportTest,
-	#superclass : #SPMTest,
+	#name : #SaReportTest,
+	#superclass : #SaTest,
 	#category : #'SaucoPerfMeter-Tests'
 }
 
 { #category : #testing }
-SPMReportTest >> testAllBehaviorNodes [
+SaReportTest >> testAllBehaviorNodes [
 	self
 		assert: report allBehaviorNodes asSet
 		equals:
@@ -14,7 +14,7 @@ SPMReportTest >> testAllBehaviorNodes [
 ]
 
 { #category : #testing }
-SPMReportTest >> testAllCategoryNodes [
+SaReportTest >> testAllCategoryNodes [
 	self
 		assert: report allCategoryNodes asSet
 		equals:
@@ -23,7 +23,7 @@ SPMReportTest >> testAllCategoryNodes [
 ]
 
 { #category : #testing }
-SPMReportTest >> testAllMethodNodes [
+SaReportTest >> testAllMethodNodes [
 	self
 		assert: report allMethodNodes asSet
 		equals:
@@ -33,7 +33,7 @@ SPMReportTest >> testAllMethodNodes [
 ]
 
 { #category : #testing }
-SPMReportTest >> testTallyLeaves [
+SaReportTest >> testTallyLeaves [
 
 	self
 		assert: (report tallyLeaves collect: [ :n | n methodNode ])

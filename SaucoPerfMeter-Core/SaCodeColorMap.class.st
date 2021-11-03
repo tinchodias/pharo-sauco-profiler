@@ -2,8 +2,8 @@
 I am initialized for a register and generate colors for each of its code nodes.
 "
 Class {
-	#name : #SPMCodeColorMap,
-	#superclass : #SPMColorMap,
+	#name : #SaCodeColorMap,
+	#superclass : #SaColorMap,
 	#instVars : [
 		'colorByCodeMap'
 	],
@@ -11,20 +11,20 @@ Class {
 }
 
 { #category : #'instance creation' }
-SPMCodeColorMap class >> forReport: aSPMReport [
+SaCodeColorMap class >> forReport: aSaReport [
 	^ self basicNew
-		initializeForReport: aSPMReport;
+		initializeForReport: aSaReport;
 		yourself
 ]
 
 { #category : #accessing }
-SPMCodeColorMap >> colorAt: aSPMCodeNode [
+SaCodeColorMap >> colorAt: aSaCodeNode [
 
-	^ colorByCodeMap at: aSPMCodeNode
+	^ colorByCodeMap at: aSaCodeNode
 ]
 
 { #category : #private }
-SPMCodeColorMap >> deepRegister: aCodeCollection colors: colors [
+SaCodeColorMap >> deepRegister: aCodeCollection colors: colors [
 	aCodeCollection ifEmpty: [ ^ self ].
 	colors
 		withIndexDo: [ :color :index | 
@@ -37,12 +37,12 @@ SPMCodeColorMap >> deepRegister: aCodeCollection colors: colors [
 ]
 
 { #category : #private }
-SPMCodeColorMap >> gradient: count from: base to: next [
+SaCodeColorMap >> gradient: count from: base to: next [
 	^ (1 to: count) collect: [ :each | (base mixed: each / count with: next) alpha: 0.75 ]
 ]
 
 { #category : #accessing }
-SPMCodeColorMap >> initialize [
+SaCodeColorMap >> initialize [
 
 	super initialize.
 	colorByCodeMap := Dictionary new.
@@ -50,7 +50,7 @@ SPMCodeColorMap >> initialize [
 ]
 
 { #category : #accessing }
-SPMCodeColorMap >> initializeForReport: aReport [
+SaCodeColorMap >> initializeForReport: aReport [
 	| colors categories relevantCount irrelevantCount |
 	self initialize.
 	categories := aReport allCategoryNodes.

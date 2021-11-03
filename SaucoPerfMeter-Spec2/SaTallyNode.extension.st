@@ -1,13 +1,13 @@
-Extension { #name : #SPMTallyNode }
+Extension { #name : #SaTallyNode }
 
 { #category : #'*SaucoPerfMeter-Spec2' }
-SPMTallyNode >> inspectionForAllParents: aBuilder [
+SaTallyNode >> inspectionForAllParents: aBuilder [
 	<inspectorPresentationOrder: 0 title: 'Call Stack'>
 
 	^ aBuilder newTable
 		items: self withAllParents;
 		addColumn: ((SpImageTableColumn
-			evaluated: [ :each | SPMConvenience ratioIcon: each ratio ]) 
+			evaluated: [ :each | SaConvenience ratioIcon: each ratio ]) 
 			beNotExpandable;
 			yourself);
 		addColumn: ((SpStringTableColumn 
@@ -16,52 +16,52 @@ SPMTallyNode >> inspectionForAllParents: aBuilder [
 			yourself);
 		addColumn: ((SpStringTableColumn 
 			title: 'Name'
-			evaluated: [ :each | SPMConvenience codeNameMorphFor: each methodNode ])
+			evaluated: [ :each | SaConvenience codeNameMorphFor: each methodNode ])
 			width: 400;
 			yourself);
 		yourself
 ]
 
 { #category : #'*SaucoPerfMeter-Spec2' }
-SPMTallyNode >> inspectionForBehaviors: aBuilder [
+SaTallyNode >> inspectionForBehaviors: aBuilder [
 	<inspectorPresentationOrder: 2 title: 'Behaviors'>
 
-	^ SPMConvenience
+	^ SaConvenience
 		inspectionCodeList: aBuilder
 		items: self allBehaviorNodes
 ]
 
 { #category : #'*SaucoPerfMeter-Spec2' }
-SPMTallyNode >> inspectionForCategories: aBuilder [
+SaTallyNode >> inspectionForCategories: aBuilder [
 	<inspectorPresentationOrder: 1 title: 'Categories'>
 
-	^ SPMConvenience
+	^ SaConvenience
 		inspectionCodeList: aBuilder
 		items: self allCategoryNodes
 ]
 
 { #category : #'*SaucoPerfMeter-Spec2' }
-SPMTallyNode >> inspectionForMethods: aBuilder [
+SaTallyNode >> inspectionForMethods: aBuilder [
 	<inspectorPresentationOrder: 3 title: 'Methods'>
 
-	^ SPMConvenience
+	^ SaConvenience
 		inspectionCodeList: aBuilder
 		items: self allMethodNodes
 ]
 
 { #category : #'*SaucoPerfMeter-Spec2' }
-SPMTallyNode >> inspectionForSource: aBuilder [
+SaTallyNode >> inspectionForSource: aBuilder [
 	<inspectorPresentationOrder: 0.1 title: 'Source in current image'>
 
 	^ methodNode inspectionForSource: aBuilder
 ]
 
 { #category : #'*SaucoPerfMeter-Spec2' }
-SPMTallyNode >> relevanceDescription [
+SaTallyNode >> relevanceDescription [
 
 	| output |
 	output := '{1} [{2}]' format: { 
-			  (SPMConvenience printPercentage: self percentage).
+			  (SaConvenience printPercentage: self percentage).
 			  (report durationPrinter print: self time) }.
 	
 	(self hasChildren and: [ self netTally > 0 ]) ifTrue: [

@@ -1,8 +1,8 @@
 Extension { #name : #MessageTally }
 
 { #category : #'*SaucoPerfMeter-Core' }
-MessageTally >> spmAsReport [
-	^ SPMBuilder new
+MessageTally >> saucoAsReport [
+	^ SaBuilder new
 		tallyRoot: self;
 		totalTime: time;
 		build;

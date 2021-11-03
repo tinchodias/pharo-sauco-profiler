@@ -1,31 +1,31 @@
-Extension { #name : #SPMReport }
+Extension { #name : #SaReport }
 
 { #category : #'*SaucoPerfMeter-Spec2' }
-SPMReport >> inspectionForBehaviors: aBuilder [
+SaReport >> inspectionForBehaviors: aBuilder [
 	<inspectorPresentationOrder: 2 title: 'Behaviors'>
 
-	^ SPMConvenience
+	^ SaConvenience
 		inspectionCodeList: aBuilder
 		items: self allBehaviorNodes
 ]
 
 { #category : #'*SaucoPerfMeter-Spec2' }
-SPMReport >> inspectionForCategories: aBuilder [
+SaReport >> inspectionForCategories: aBuilder [
 	<inspectorPresentationOrder: 1 title: 'Categories'>
 
-	^ SPMConvenience
+	^ SaConvenience
 		inspectionCodeList: aBuilder
 		items: self allCategoryNodes
 ]
 
 { #category : #'*SaucoPerfMeter-Spec2' }
-SPMReport >> inspectionForMethodLeaves: aBuilder [
+SaReport >> inspectionForMethodLeaves: aBuilder [
 	<inspectorPresentationOrder: 0.6 title: 'Method Leaves'>
 
 	^ aBuilder newTable
 		items: self methodNodeLeaves;
 		addColumn: ((SpImageTableColumn
-			evaluated: [ :each | SPMConvenience ratioIcon: each ratio ]) 
+			evaluated: [ :each | SaConvenience ratioIcon: each ratio ]) 
 			beNotExpandable;
 			yourself);
 		addColumn: ((SpStringTableColumn 
@@ -34,7 +34,7 @@ SPMReport >> inspectionForMethodLeaves: aBuilder [
 			yourself);
 		addColumn: ((SpStringTableColumn 
 			title: 'Name'
-			evaluated: [ :each | SPMConvenience codeNameMorphFor: each ])
+			evaluated: [ :each | SaConvenience codeNameMorphFor: each ])
 			width: 400;
 			yourself);
 		addColumn: (SpStringTableColumn
@@ -43,16 +43,16 @@ SPMReport >> inspectionForMethodLeaves: aBuilder [
 ]
 
 { #category : #'*SaucoPerfMeter-Spec2' }
-SPMReport >> inspectionForMethods: aBuilder [
+SaReport >> inspectionForMethods: aBuilder [
 	<inspectorPresentationOrder: 3 title: 'Methods'>
 
-	^ SPMConvenience
+	^ SaConvenience
 		inspectionCodeList: aBuilder
 		items: self allMethodNodes
 ]
 
 { #category : #'*SaucoPerfMeter-Spec2' }
-SPMReport >> inspectionForNetRanking: aBuilder [
+SaReport >> inspectionForNetRanking: aBuilder [
 	<inspectorPresentationOrder: 0.7 title: 'Tally Leaves'>
 
 	| topTen |
@@ -61,7 +61,7 @@ SPMReport >> inspectionForNetRanking: aBuilder [
 	^ aBuilder newTable
 		items: topTen;
 		addColumn: ((SpImageTableColumn
-			evaluated: [ :each | SPMConvenience ratioIcon: each ratio ]) 
+			evaluated: [ :each | SaConvenience ratioIcon: each ratio ]) 
 			beNotExpandable;
 			yourself);
 		addColumn: ((SpStringTableColumn 
@@ -73,7 +73,7 @@ SPMReport >> inspectionForNetRanking: aBuilder [
 			evaluated: [ :each | each netTally ]);
 		addColumn: ((SpStringTableColumn 
 			title: 'Name'
-			evaluated: [ :each | SPMConvenience codeNameMorphFor: each methodNode ])
+			evaluated: [ :each | SaConvenience codeNameMorphFor: each methodNode ])
 			width: 400;
 			yourself);
 		addColumn: (SpStringTableColumn
@@ -86,7 +86,7 @@ SPMReport >> inspectionForNetRanking: aBuilder [
 ]
 
 { #category : #'*SaucoPerfMeter-Spec2' }
-SPMReport >> inspectionForTallyTree: aBuilder [
+SaReport >> inspectionForTallyTree: aBuilder [
 	<inspectorPresentationOrder: 0.1 title: 'Tally tree'>
 
 	| sortingBlock |
@@ -96,8 +96,8 @@ SPMReport >> inspectionForTallyTree: aBuilder [
 		hideColumnHeaders;
 		roots: (self rootTallyNodes sorted: sortingBlock);
 		expandRoots;
-		displayIcon: [ :each | SPMConvenience ratioIcon: each ratio ];
-		display: [ :each | SPMConvenience tallyNodeMorphFor: each ];
+		displayIcon: [ :each | SaConvenience ratioIcon: each ratio ];
+		display: [ :each | SaConvenience tallyNodeMorphFor: each ];
 		children: [ :each | each children sorted: sortingBlock ];
 		yourself
 

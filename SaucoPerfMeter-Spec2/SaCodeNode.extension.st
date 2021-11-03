@@ -1,15 +1,15 @@
-Extension { #name : #SPMCodeNode }
+Extension { #name : #SaCodeNode }
 
 { #category : #'*SaucoPerfMeter-Spec2' }
-SPMCodeNode >> nameTags [
+SaCodeNode >> nameTags [
 
 	^ self subclassResponsibility
 ]
 
 { #category : #'*SaucoPerfMeter-Spec2' }
-SPMCodeNode >> relevanceDescription [
+SaCodeNode >> relevanceDescription [
 
 	^ '{1} [{2}]' format: { 
-			  (SPMConvenience printPercentage: self percentage).
+			  (SaConvenience printPercentage: self percentage).
 			  (report durationPrinter print: self time) }
 ]

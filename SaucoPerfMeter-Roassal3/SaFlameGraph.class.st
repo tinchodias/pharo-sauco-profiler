@@ -1,5 +1,5 @@
 Class {
-	#name : #SPMFlameGraph,
+	#name : #SaFlameGraph,
 	#superclass : #Object,
 	#instVars : [
 		'tallyNodeSelectBlock',
@@ -12,7 +12,7 @@ Class {
 }
 
 { #category : #private }
-SPMFlameGraph >> addInnerLabels [
+SaFlameGraph >> addInnerLabels [
 	"Add labels to each rectangle, when they fit inside."	
 
 	builder shapes do: [ :shape |
@@ -35,7 +35,7 @@ SPMFlameGraph >> addInnerLabels [
 ]
 
 { #category : #private }
-SPMFlameGraph >> borderForBox [
+SaFlameGraph >> borderForBox [
 
 	^ borderForBox ifNil: [
 		borderForBox := RSBorder new
@@ -46,7 +46,7 @@ SPMFlameGraph >> borderForBox [
 ]
 
 { #category : #building }
-SPMFlameGraph >> build [
+SaFlameGraph >> build [
 
 	builder := RSFlameGraph new.
 	builder
@@ -79,20 +79,20 @@ SPMFlameGraph >> build [
 ]
 
 { #category : #accessing }
-SPMFlameGraph >> canvas [
+SaFlameGraph >> canvas [
 	"Answerr the RSCanvas that was built previously by sending #build."
 
 	^ builder canvas
 ]
 
 { #category : #accessing }
-SPMFlameGraph >> considerAllNodes [
+SaFlameGraph >> considerAllNodes [
 
 	self tallyNodeSelectBlock: [ :_ | true ]
 ]
 
 { #category : #private }
-SPMFlameGraph >> highlightInteraction [
+SaFlameGraph >> highlightInteraction [
 
 	^ RSHighlightable new
 		  highlightBorder: (RSBorder new
@@ -102,13 +102,13 @@ SPMFlameGraph >> highlightInteraction [
 ]
 
 { #category : #private }
-SPMFlameGraph >> popupInteraction [
+SaFlameGraph >> popupInteraction [
 
 	| popup |
 	popup := RSPopup new.
 
 	popup shapeBuilder textBlock: [ :n | 
-		SPMConvenience multipleLineDescriptionFor: n ].
+		SaConvenience multipleLineDescriptionFor: n ].
 
 	popup shapeBuilder labelBuilder labelShape color: self theme textColor.
 
@@ -116,43 +116,43 @@ SPMFlameGraph >> popupInteraction [
 ]
 
 { #category : #accessing }
-SPMFlameGraph >> report [
+SaFlameGraph >> report [
 
 	^ report
 ]
 
 { #category : #accessing }
-SPMFlameGraph >> report: aSPMReport [
+SaFlameGraph >> report: aSaReport [
 
-	report := aSPMReport
+	report := aSaReport
 ]
 
 { #category : #accessing }
-SPMFlameGraph >> tallyNodeSelectBlock [
+SaFlameGraph >> tallyNodeSelectBlock [
 
 	^ tallyNodeSelectBlock ifNil: [ tallyNodeSelectBlock := #isRelevant ]
 ]
 
 { #category : #accessing }
-SPMFlameGraph >> tallyNodeSelectBlock: aUnaryBlockClosure [
+SaFlameGraph >> tallyNodeSelectBlock: aUnaryBlockClosure [
 
 	tallyNodeSelectBlock := aUnaryBlockClosure
 ]
 
 { #category : #accessing }
-SPMFlameGraph >> tallyNodes [
+SaFlameGraph >> tallyNodes [
 
 	^ tallyNodes
 ]
 
 { #category : #accessing }
-SPMFlameGraph >> tallyNodes: aCollectionOfSPMTallyNodes [
+SaFlameGraph >> tallyNodes: aCollectionOfSaTallyNodes [
 
-	tallyNodes := aCollectionOfSPMTallyNodes
+	tallyNodes := aCollectionOfSaTallyNodes
 ]
 
 { #category : #private }
-SPMFlameGraph >> theme [
+SaFlameGraph >> theme [
 
 	^ report colorMap theme
 ]

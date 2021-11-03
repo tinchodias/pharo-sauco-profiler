@@ -1,11 +1,11 @@
-Extension { #name : #SPMTallyNode }
+Extension { #name : #SaTallyNode }
 
 { #category : #'*SaucoPerfMeter-Roassal3' }
-SPMTallyNode >> inspectionForFlameGraph: aBuilder [
+SaTallyNode >> inspectionForFlameGraph: aBuilder [
 	<inspectorPresentationOrder: 0.5 title: 'Children flame graph'>
 
 	^ (aBuilder instantiate: SpRoassal3InspectorPresenter)
-		  canvas: (SPMFlameGraph new
+		  canvas: (SaFlameGraph new
 				   considerAllNodes;
 				   report: report;
 				   tallyNodes: { self };

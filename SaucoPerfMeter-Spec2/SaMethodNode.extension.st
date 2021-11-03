@@ -1,7 +1,7 @@
-Extension { #name : #SPMMethodNode }
+Extension { #name : #SaMethodNode }
 
 { #category : #'*SaucoPerfMeter-Spec2' }
-SPMMethodNode >> inspectionForSource: aBuilder [
+SaMethodNode >> inspectionForSource: aBuilder [
 	<inspectorPresentationOrder: 0 title: 'Source in current image'>
 
 	^ self
@@ -14,7 +14,7 @@ SPMMethodNode >> inspectionForSource: aBuilder [
 ]
 
 { #category : #'*SaucoPerfMeter-Spec2' }
-SPMMethodNode >> inspectionForTallyNodes: aBuilder [
+SaMethodNode >> inspectionForTallyNodes: aBuilder [
 	<inspectorPresentationOrder: 1 title: 'Tally Nodes'>
 
 	| topTen |
@@ -23,7 +23,7 @@ SPMMethodNode >> inspectionForTallyNodes: aBuilder [
 	^ aBuilder newTable
 		items: topTen;
 		addColumn: ((SpImageTableColumn
-			evaluated: [ :each | SPMConvenience ratioIcon: each ratio ]) 
+			evaluated: [ :each | SaConvenience ratioIcon: each ratio ]) 
 			beNotExpandable;
 			yourself);
 		addColumn: ((SpStringTableColumn 
@@ -35,7 +35,7 @@ SPMMethodNode >> inspectionForTallyNodes: aBuilder [
 			evaluated: [ :each | each netTally ]);
 		addColumn: ((SpStringTableColumn 
 			title: 'Name'
-			evaluated: [ :each | SPMConvenience codeNameMorphFor: each methodNode ])
+			evaluated: [ :each | SaConvenience codeNameMorphFor: each methodNode ])
 			width: 400;
 			yourself);
 		addColumn: (SpStringTableColumn
@@ -48,7 +48,7 @@ SPMMethodNode >> inspectionForTallyNodes: aBuilder [
 ]
 
 { #category : #'*SaucoPerfMeter-Spec2' }
-SPMMethodNode >> nameTags [
+SaMethodNode >> nameTags [
 
 	^ { self categoryName }
 ]

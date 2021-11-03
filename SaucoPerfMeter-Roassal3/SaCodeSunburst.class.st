@@ -1,11 +1,11 @@
 Class {
-	#name : #SPMCodeSunburst,
+	#name : #SaCodeSunburst,
 	#superclass : #Object,
 	#category : #'SaucoPerfMeter-Roassal3'
 }
 
 { #category : #building }
-SPMCodeSunburst >> canvasFor: categoryNodes [
+SaCodeSunburst >> canvasFor: categoryNodes [
 
 	| builder |
 	builder := RSSunburstBuilder new.

@@ -1,9 +1,9 @@
 "
-I represent a method in the SPMReport.
+I represent a method in the SaReport.
 "
 Class {
-	#name : #SPMMethodNode,
-	#superclass : #SPMCodeNode,
+	#name : #SaMethodNode,
+	#superclass : #SaCodeNode,
 	#instVars : [
 		'behaviorNode',
 		'tallyNodes'
@@ -12,45 +12,45 @@ Class {
 }
 
 { #category : #accessing }
-SPMMethodNode >> addTallyNode: aSPMTallyNode [ 
-	"Register aSPMTallyNode and establish the bi-directional knowledge as well."
+SaMethodNode >> addTallyNode: aSaTallyNode [ 
+	"Register aSaTallyNode and establish the bi-directional knowledge as well."
 
-	tallyNodes add: aSPMTallyNode.
-	aSPMTallyNode methodNode: self
+	tallyNodes add: aSaTallyNode.
+	aSaTallyNode methodNode: self
 ]
 
 { #category : #accessing }
-SPMMethodNode >> behaviorName [
+SaMethodNode >> behaviorName [
 	^ behaviorNode name
 ]
 
 { #category : #accessing }
-SPMMethodNode >> behaviorNode [
+SaMethodNode >> behaviorNode [
 	^ behaviorNode
 ]
 
 { #category : #accessing }
-SPMMethodNode >> behaviorNode: anObject [
+SaMethodNode >> behaviorNode: anObject [
 	behaviorNode := anObject
 ]
 
 { #category : #accessing }
-SPMMethodNode >> calculatedNetTally [
+SaMethodNode >> calculatedNetTally [
 	^ tallyNodes inject: 0 into: [ :sum :each | sum + each netTally ]
 ]
 
 { #category : #accessing }
-SPMMethodNode >> categoryName [
+SaMethodNode >> categoryName [
 	^ behaviorNode categoryName
 ]
 
 { #category : #accessing }
-SPMMethodNode >> children [
+SaMethodNode >> children [
 	^ #()
 ]
 
 { #category : #accessing }
-SPMMethodNode >> compiledMethodInCurrentImageIfPresent: presentBlock ifAbsent: absentBlock [
+SaMethodNode >> compiledMethodInCurrentImageIfPresent: presentBlock ifAbsent: absentBlock [
 	(self class environment classOrTraitNamed: self behaviorName)
 		ifNotNil: [ :behavior | 
 			behavior 
@@ -61,22 +61,22 @@ SPMMethodNode >> compiledMethodInCurrentImageIfPresent: presentBlock ifAbsent: a
 ]
 
 { #category : #accessing }
-SPMMethodNode >> fullName [
+SaMethodNode >> fullName [
 	^ self behaviorName, '>>', name
 ]
 
 { #category : #initialization }
-SPMMethodNode >> initialize [
+SaMethodNode >> initialize [
 	super initialize.
 	tallyNodes := OrderedCollection new
 ]
 
 { #category : #accessing }
-SPMMethodNode >> tallyNodes [
+SaMethodNode >> tallyNodes [
 	^ tallyNodes
 ]
 
 { #category : #accessing }
-SPMMethodNode >> tallyNodes: anObject [
+SaMethodNode >> tallyNodes: anObject [
 	tallyNodes := anObject
 ]

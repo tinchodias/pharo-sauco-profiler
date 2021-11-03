@@ -1,9 +1,9 @@
 "
-I represent a class or trait (instance or class side) in the SPMReport.
+I represent a class or trait (instance or class side) in the SaReport.
 "
 Class {
-	#name : #SPMBehaviorNode,
-	#superclass : #SPMCodeNode,
+	#name : #SaBehaviorNode,
+	#superclass : #SaCodeNode,
 	#instVars : [
 		'categoryNode',
 		'methodNodes'
@@ -12,52 +12,52 @@ Class {
 }
 
 { #category : #accessing }
-SPMBehaviorNode >> addMethod: aMethodNode [
+SaBehaviorNode >> addMethod: aMethodNode [
 	methodNodes add: aMethodNode
 ]
 
 { #category : #accessing }
-SPMBehaviorNode >> calculatedNetTally [
+SaBehaviorNode >> calculatedNetTally [
 	^ methodNodes inject: 0 into: [ :sum :each | sum + each netTally ]
 ]
 
 { #category : #accessing }
-SPMBehaviorNode >> categoryName [
+SaBehaviorNode >> categoryName [
 	^ categoryNode name
 ]
 
 { #category : #accessing }
-SPMBehaviorNode >> categoryNode [
+SaBehaviorNode >> categoryNode [
 	^ categoryNode
 ]
 
 { #category : #accessing }
-SPMBehaviorNode >> categoryNode: anObject [
+SaBehaviorNode >> categoryNode: anObject [
 	categoryNode := anObject
 ]
 
 { #category : #accessing }
-SPMBehaviorNode >> children [
+SaBehaviorNode >> children [
 	^ methodNodes
 ]
 
 { #category : #accessing }
-SPMBehaviorNode >> fullName [
+SaBehaviorNode >> fullName [
 	^ name
 ]
 
 { #category : #initialization }
-SPMBehaviorNode >> initialize [
+SaBehaviorNode >> initialize [
 	super initialize.
 	methodNodes := OrderedCollection new
 ]
 
 { #category : #accessing }
-SPMBehaviorNode >> methodNodes [
+SaBehaviorNode >> methodNodes [
 	^ methodNodes
 ]
 
 { #category : #accessing }
-SPMBehaviorNode >> methodNodes: anObject [
+SaBehaviorNode >> methodNodes: anObject [
 	methodNodes := anObject
 ]

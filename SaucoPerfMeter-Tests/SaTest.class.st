@@ -1,5 +1,5 @@
 Class {
-	#name : #SPMTest,
+	#name : #SaTest,
 	#superclass : #TestCase,
 	#instVars : [
 		'methodZ',
@@ -22,15 +22,15 @@ Class {
 }
 
 { #category : #testing }
-SPMTest class >> isAbstract [
+SaTest class >> isAbstract [
 
-	^ self = SPMTest
+	^ self = SaTest
 ]
 
 { #category : #running }
-SPMTest >> behaviorP [
+SaTest >> behaviorP [
 	^ behaviorP ifNil: [
-		behaviorP := SPMBehaviorNode new
+		behaviorP := SaBehaviorNode new
 				report: report;
 				name: 'P';
 				categoryNode: self categoryH;
@@ -38,9 +38,9 @@ SPMTest >> behaviorP [
 ]
 
 { #category : #running }
-SPMTest >> behaviorQ [
+SaTest >> behaviorQ [
 	^ behaviorQ ifNil: [
-		behaviorQ := SPMBehaviorNode new
+		behaviorQ := SaBehaviorNode new
 				report: report;
 				name: 'Q';
 				categoryNode: self categoryI;
@@ -48,27 +48,27 @@ SPMTest >> behaviorQ [
 ]
 
 { #category : #running }
-SPMTest >> categoryH [
+SaTest >> categoryH [
 	^ categoryH ifNil: [
-		categoryH := SPMCategoryNode new
+		categoryH := SaCategoryNode new
 				report: report;
 				name: 'H';
 				yourself ]
 ]
 
 { #category : #running }
-SPMTest >> categoryI [
+SaTest >> categoryI [
 	^ categoryI ifNil: [
-		categoryI := SPMCategoryNode new
+		categoryI := SaCategoryNode new
 				report: report;
 				name: 'I';
 				yourself ]
 ]
 
 { #category : #running }
-SPMTest >> methodX [
+SaTest >> methodX [
 	^ methodX ifNil: [
-		methodX := SPMMethodNode new
+		methodX := SaMethodNode new
 				report: report;
 				name: 'x';
 				behaviorNode: self behaviorP;
@@ -76,9 +76,9 @@ SPMTest >> methodX [
 ]
 
 { #category : #running }
-SPMTest >> methodY [
+SaTest >> methodY [
 	^ methodY ifNil: [
-		methodY := SPMMethodNode new
+		methodY := SaMethodNode new
 				report: report;
 				name: 'y';
 				behaviorNode: self behaviorP;
@@ -86,9 +86,9 @@ SPMTest >> methodY [
 ]
 
 { #category : #running }
-SPMTest >> methodZ [
+SaTest >> methodZ [
 	^ methodZ ifNil: [
-		methodZ := SPMMethodNode new
+		methodZ := SaMethodNode new
 				report: report;
 				name: 'z';
 				behaviorNode: self behaviorQ;
@@ -96,41 +96,41 @@ SPMTest >> methodZ [
 ]
 
 { #category : #running }
-SPMTest >> setUp [
+SaTest >> setUp [
 
 	super setUp.
-	report := SPMReport new.
-	root := SPMTallyNode
+	report := SaReport new.
+	root := SaTallyNode
 		report: report
 		methodNode: self methodX
 		tally: 1000
 		children: { 
-			nodeA := (SPMTallyNode
+			nodeA := (SaTallyNode
 				report: report
 				methodNode: self methodY
 				tally: 600
 				children: {
-					nodeAA := (SPMTallyNode
+					nodeAA := (SaTallyNode
 						report: report
 						methodNode: self methodY
 						tally: 600
 						children: #())}).
-			nodeB := (SPMTallyNode
+			nodeB := (SaTallyNode
 				report: report
 				methodNode: self methodZ
 				tally: 400
 				children: {
-					nodeBA := (SPMTallyNode
+					nodeBA := (SaTallyNode
 						report: report
 						methodNode: self methodZ
 						tally: 300
 						children: {
-							nodeBAA := (SPMTallyNode
+							nodeBAA := (SaTallyNode
 								report: report
 								methodNode: self methodZ
 								tally: 200
 								children: {
-									nodeBAAA := (SPMTallyNode
+									nodeBAAA := (SaTallyNode
 										report: report
 										methodNode: self methodZ
 										tally: 100

@@ -1,11 +1,11 @@
 Class {
-	#name : #SPMBuilderTest,
+	#name : #SaBuilderTest,
 	#superclass : #TestCase,
 	#category : #'SaucoPerfMeter-Tests'
 }
 
 { #category : #tests }
-SPMBuilderTest >> testAndreasSystemProfilerAsReport [
+SaBuilderTest >> testAndreasSystemProfilerAsReport [
 	| profiler report |
 	"Profile"
 	profiler := AndreasSystemProfiler new.
@@ -13,7 +13,7 @@ SPMBuilderTest >> testAndreasSystemProfilerAsReport [
 	25 benchFib.
 	profiler stopProfiling.
 	"Asserts on resulting report"
-	report := profiler spmAsReport.
+	report := profiler saucoAsReport.
 	self deny: report isNil.
 	self deny: report rootTallyNodes isEmpty.
 	report rootTallyNodes do: [ :each | 
@@ -21,13 +21,13 @@ SPMBuilderTest >> testAndreasSystemProfilerAsReport [
 ]
 
 { #category : #tests }
-SPMBuilderTest >> testMessageTallyAsReport [
+SaBuilderTest >> testMessageTallyAsReport [
 	| profiler report |
 	"Profile"
 	profiler := MessageTally new.
 	profiler spyEvery: 1 on: [ 25 benchFib ].
 	"Asserts on resulting report"
-	report := profiler spmAsReport.
+	report := profiler saucoAsReport.
 	self deny: report isNil.
 	self deny: report rootTallyNodes isEmpty.
 	report rootTallyNodes do: [ :each | 

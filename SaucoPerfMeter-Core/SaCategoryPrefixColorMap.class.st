@@ -1,6 +1,6 @@
 Class {
-	#name : #SPMCategoryPrefixColorMap,
-	#superclass : #SPMColorMap,
+	#name : #SaCategoryPrefixColorMap,
+	#superclass : #SaColorMap,
 	#instVars : [
 		'colorAssociations',
 		'defaultColor'
@@ -9,19 +9,19 @@ Class {
 }
 
 { #category : #accessing }
-SPMCategoryPrefixColorMap >> colorAssociations [
+SaCategoryPrefixColorMap >> colorAssociations [
 
 	^ colorAssociations
 ]
 
 { #category : #accessing }
-SPMCategoryPrefixColorMap >> colorAt: aSPMCodeNode [
+SaCategoryPrefixColorMap >> colorAt: aSaCodeNode [
 
-	^ self colorForCategory: aSPMCodeNode categoryName 
+	^ self colorForCategory: aSaCodeNode categoryName 
 ]
 
 { #category : #accessing }
-SPMCategoryPrefixColorMap >> colorForCategory: aString [ 
+SaCategoryPrefixColorMap >> colorForCategory: aString [ 
 
 	^ (self colorAssociations
 		detect: [ :each | aString beginsWith: each key ]
@@ -30,7 +30,7 @@ SPMCategoryPrefixColorMap >> colorForCategory: aString [
 ]
 
 { #category : #initialization }
-SPMCategoryPrefixColorMap >> initialize [
+SaCategoryPrefixColorMap >> initialize [
 
 	super initialize.
 
@@ -40,15 +40,15 @@ SPMCategoryPrefixColorMap >> initialize [
 ]
 
 { #category : #accessing }
-SPMCategoryPrefixColorMap >> labelColorAt: aSPMCodeNode [
+SaCategoryPrefixColorMap >> labelColorAt: aSaCodeNode [
 
-	^ (self colorAt: aSPMCodeNode) luminance < 0.5
+	^ (self colorAt: aSaCodeNode) luminance < 0.5
 		  ifTrue: [ Color white ]
 		  ifFalse: [ Color black ]
 ]
 
 { #category : #initialization }
-SPMCategoryPrefixColorMap >> mapPrefixes: aCollectionOfStrings from: aColor [
+SaCategoryPrefixColorMap >> mapPrefixes: aCollectionOfStrings from: aColor [
 
 	| anotherColor minHueIncrement |
 	minHueIncrement := 5.
@@ -61,7 +61,7 @@ SPMCategoryPrefixColorMap >> mapPrefixes: aCollectionOfStrings from: aColor [
 ]
 
 { #category : #initialization }
-SPMCategoryPrefixColorMap >> mapPrefixes: aCollectionOfStrings from: aColor to: anotherColor [
+SaCategoryPrefixColorMap >> mapPrefixes: aCollectionOfStrings from: aColor to: anotherColor [
 
 	| colorRamp |
 	colorRamp := aColor 

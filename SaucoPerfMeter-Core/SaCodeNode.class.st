@@ -1,8 +1,8 @@
 "
-I represent a piece of code in the SPMReport.
+I represent a piece of code in the SaReport.
 "
 Class {
-	#name : #SPMCodeNode,
+	#name : #SaCodeNode,
 	#superclass : #Object,
 	#instVars : [
 		'name',
@@ -13,61 +13,61 @@ Class {
 }
 
 { #category : #accessing }
-SPMCodeNode >> calculatedNetTally [
+SaCodeNode >> calculatedNetTally [
 	^ self subclassResponsibility
 ]
 
 { #category : #accessing }
-SPMCodeNode >> children [
+SaCodeNode >> children [
 	^ self subclassResponsibility
 ]
 
 { #category : #accessing }
-SPMCodeNode >> codeColor [
+SaCodeNode >> codeColor [
 
 	^ report colorMap colorAt: self
 ]
 
 { #category : #accessing }
-SPMCodeNode >> fullName [
+SaCodeNode >> fullName [
 	^ self subclassResponsibility
 ]
 
 { #category : #testing }
-SPMCodeNode >> hasChildren [
+SaCodeNode >> hasChildren [
 
 	^ self children notEmpty
 ]
 
 { #category : #testing }
-SPMCodeNode >> isRelevant [
+SaCodeNode >> isRelevant [
 
 	^ self ratio >= report minimumRelevantRatio
 ]
 
 { #category : #accessing }
-SPMCodeNode >> name [
+SaCodeNode >> name [
 	^ name
 ]
 
 { #category : #accessing }
-SPMCodeNode >> name: aString [
+SaCodeNode >> name: aString [
 
 	name := aString
 ]
 
 { #category : #accessing }
-SPMCodeNode >> netTally [
+SaCodeNode >> netTally [
 	^ cachedTotalTally ifNil: [ cachedTotalTally := self calculatedNetTally ]
 ]
 
 { #category : #accessing }
-SPMCodeNode >> percentage [
+SaCodeNode >> percentage [
 	^ 100.0 * self ratio
 ]
 
 { #category : #printing }
-SPMCodeNode >> printOn: aStream [
+SaCodeNode >> printOn: aStream [
 	super printOn: aStream.
 	aStream
 		space;
@@ -77,23 +77,23 @@ SPMCodeNode >> printOn: aStream [
 ]
 
 { #category : #accessing }
-SPMCodeNode >> ratio [
+SaCodeNode >> ratio [
 	"Answer the tally (or time) ratio of this node respect to report's total."
 
 	^ self netTally asFloat / report totalTally
 ]
 
 { #category : #accessing }
-SPMCodeNode >> report [
+SaCodeNode >> report [
 	^ report
 ]
 
 { #category : #accessing }
-SPMCodeNode >> report: anObject [
+SaCodeNode >> report: anObject [
 	report := anObject
 ]
 
 { #category : #accessing }
-SPMCodeNode >> time [
+SaCodeNode >> time [
 	^ self report totalTime * self ratio
 ]

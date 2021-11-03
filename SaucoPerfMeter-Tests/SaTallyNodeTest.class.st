@@ -1,14 +1,14 @@
 "
-A SPMTallyNodeTest is a test class for testing the behavior of SPMTallyNode
+A SaTallyNodeTest is a test class for testing the behavior of SaTallyNode
 "
 Class {
-	#name : #SPMTallyNodeTest,
-	#superclass : #SPMTest,
+	#name : #SaTallyNodeTest,
+	#superclass : #SaTest,
 	#category : #'SaucoPerfMeter-Tests'
 }
 
 { #category : #testing }
-SPMTallyNodeTest >> testWithAllChildren [
+SaTallyNodeTest >> testWithAllChildren [
 
 	self assert: nodeB withAllChildren equals: { 
 			nodeBAAA.
@@ -19,7 +19,7 @@ SPMTallyNodeTest >> testWithAllChildren [
 ]
 
 { #category : #testing }
-SPMTallyNodeTest >> testWithAllParents [
+SaTallyNodeTest >> testWithAllParents [
 
 	self assert: root withAllParents equals: { root }.
 	self assert: nodeB withAllParents equals: { nodeB. root }.

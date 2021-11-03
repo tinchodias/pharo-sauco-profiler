@@ -2,34 +2,34 @@
 I just hold some utility methods (sorry!)
 "
 Class {
-	#name : #SPMConvenience,
+	#name : #SaConvenience,
 	#superclass : #Object,
 	#category : #'SaucoPerfMeter-Spec2'
 }
 
 { #category : #ui }
-SPMConvenience class >> codeIcon: aSPMCodeNode [
+SaConvenience class >> codeIcon: aSaCodeNode [
 
 	^ (FormCanvas extent: 16 @ 16)
 		fillRectangle: (3 @ 3 extent: 11 @ 11)
-			color: aSPMCodeNode codeColor
+			color: aSaCodeNode codeColor
 "			borderWidth: 0
 			borderColor: Color transparent";
 		form
 ]
 
 { #category : #ui }
-SPMConvenience class >> codeNameMorphFor: aSPMCodeNode [
+SaConvenience class >> codeNameMorphFor: aSaCodeNode [
 	^ EpMorphFactory default rowWithAll: {
-			(self codeIcon: aSPMCodeNode) asMorph.
-			aSPMCodeNode fullName asMorph.
-			"(aSPMCodeNode isRelevant
-				ifTrue: [ aSPMCodeNode fullName asMorph ]
-				ifFalse: [ self shadowedTextFor: aSPMCodeNode fullName ])" }
+			(self codeIcon: aSaCodeNode) asMorph.
+			aSaCodeNode fullName asMorph.
+			"(aSaCodeNode isRelevant
+				ifTrue: [ aSaCodeNode fullName asMorph ]
+				ifFalse: [ self shadowedTextFor: aSaCodeNode fullName ])" }
 ]
 
 { #category : #ui }
-SPMConvenience class >> inspectionCodeList: aBuilder items: itemsCollection [
+SaConvenience class >> inspectionCodeList: aBuilder items: itemsCollection [
 
 	^ aBuilder newTable
 		items: itemsCollection asArray; "It doesn't work with Set, for example."
@@ -57,30 +57,30 @@ SPMConvenience class >> inspectionCodeList: aBuilder items: itemsCollection [
 ]
 
 { #category : #printing }
-SPMConvenience class >> multipleLineDescriptionFor: aSPMTallyNode [ 
+SaConvenience class >> multipleLineDescriptionFor: aSaTallyNode [ 
 
 	^ '{1}
 Method: 		{2}
 Category: 	{3}' format: {
-		aSPMTallyNode relevanceDescription.
-		aSPMTallyNode methodNode fullName.
-		aSPMTallyNode methodNode nameTags asCommaString.
+		aSaTallyNode relevanceDescription.
+		aSaTallyNode methodNode fullName.
+		aSaTallyNode methodNode nameTags asCommaString.
 		}
 ]
 
 { #category : #printing }
-SPMConvenience class >> printPercentage: aNumber [
+SaConvenience class >> printPercentage: aNumber [
 	^ ((aNumber roundTo: 0.01) printShowingDecimalPlaces: 2), '%'
 ]
 
 { #category : #ratio }
-SPMConvenience class >> ratioBottomColor [
+SaConvenience class >> ratioBottomColor [
 
 	^ Color darkGray
 ]
 
 { #category : #ratio }
-SPMConvenience class >> ratioIcon: ratio [
+SaConvenience class >> ratioIcon: ratio [
 
 	^ (FormCanvas extent: 20 @ 10)
 		fillColor: self ratioBottomColor;
@@ -93,13 +93,13 @@ SPMConvenience class >> ratioIcon: ratio [
 ]
 
 { #category : #ratio }
-SPMConvenience class >> ratioTopColor [
+SaConvenience class >> ratioTopColor [
 
 	^ Color yellow
 ]
 
 { #category : #printing }
-SPMConvenience class >> relevanceDescription: aNode [
+SaConvenience class >> relevanceDescription: aNode [
 
 	| output |
 	output := '{1} [{2}]' format: { 
@@ -115,17 +115,17 @@ SPMConvenience class >> relevanceDescription: aNode [
 ]
 
 { #category : #ui }
-SPMConvenience class >> shadowedTextFor: aString [
+SaConvenience class >> shadowedTextFor: aString [
 	^ EpMorphFactory default stringFor: aString color: EpMorphFactory default softerTextColor
 ]
 
 { #category : #ui }
-SPMConvenience class >> tallyNodeMorphFor: aSPMTallyNode [
+SaConvenience class >> tallyNodeMorphFor: aSaTallyNode [
 
 	| contents |
 	contents := {
-		aSPMTallyNode relevanceDescription asMorph.
-		(self codeNameMorphFor: aSPMTallyNode methodNode) }.
+		aSaTallyNode relevanceDescription asMorph.
+		(self codeNameMorphFor: aSaTallyNode methodNode) }.
 
 	^ EpMorphFactory default rowWithAll: contents
 ]
