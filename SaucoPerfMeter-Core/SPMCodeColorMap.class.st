@@ -3,10 +3,9 @@ I am initialized for a register and generate colors for each of its code nodes.
 "
 Class {
 	#name : #SPMCodeColorMap,
-	#superclass : #Object,
+	#superclass : #SPMColorMap,
 	#instVars : [
-		'colorByCodeMap',
-		'theme'
+		'colorByCodeMap'
 	],
 	#category : #'SaucoPerfMeter-Core'
 }
@@ -19,8 +18,9 @@ SPMCodeColorMap class >> forReport: aSPMReport [
 ]
 
 { #category : #accessing }
-SPMCodeColorMap >> colorAt: aCode [
-	^ colorByCodeMap at: aCode
+SPMCodeColorMap >> colorAt: aSPMCodeNode [
+
+	^ colorByCodeMap at: aSPMCodeNode
 ]
 
 { #category : #private }
@@ -43,9 +43,10 @@ SPMCodeColorMap >> gradient: count from: base to: next [
 
 { #category : #accessing }
 SPMCodeColorMap >> initialize [
+
 	super initialize.
 	colorByCodeMap := Dictionary new.
-	theme := Smalltalk ui theme.
+
 ]
 
 { #category : #accessing }
@@ -57,16 +58,4 @@ SPMCodeColorMap >> initializeForReport: aReport [
 	irrelevantCount := categories size - relevantCount.
 	colors := (Color wheel: relevantCount), (Array new: irrelevantCount withAll: theme disabledTextColor).
 	self deepRegister: categories colors: colors.
-]
-
-{ #category : #accessing }
-SPMCodeColorMap >> theme [
-
-	^ theme
-]
-
-{ #category : #accessing }
-SPMCodeColorMap >> theme: aUITheme [
-
-	theme := aUITheme
 ]

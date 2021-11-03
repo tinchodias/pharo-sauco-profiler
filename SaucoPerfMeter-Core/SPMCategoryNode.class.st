@@ -31,6 +31,12 @@ SPMCategoryNode >> calculatedNetTally [
 ]
 
 { #category : #accessing }
+SPMCategoryNode >> categoryName [
+	
+	^ name
+]
+
+{ #category : #accessing }
 SPMCategoryNode >> children [
 	^ behaviorNodes
 ]

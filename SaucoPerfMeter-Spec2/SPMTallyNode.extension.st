@@ -2,7 +2,7 @@ Extension { #name : #SPMTallyNode }
 
 { #category : #'*SaucoPerfMeter-Spec2' }
 SPMTallyNode >> inspectionForAllParents: aBuilder [
-	<inspectorPresentationOrder: 1.5 title: 'Stack'>
+	<inspectorPresentationOrder: 0 title: 'Call Stack'>
 
 	^ aBuilder newTable
 		items: self withAllParents;
@@ -51,7 +51,7 @@ SPMTallyNode >> inspectionForMethods: aBuilder [
 
 { #category : #'*SaucoPerfMeter-Spec2' }
 SPMTallyNode >> inspectionForSource: aBuilder [
-	<inspectorPresentationOrder: 0 title: 'Source in current image'>
+	<inspectorPresentationOrder: 0.1 title: 'Source in current image'>
 
 	^ methodNode inspectionForSource: aBuilder
 ]

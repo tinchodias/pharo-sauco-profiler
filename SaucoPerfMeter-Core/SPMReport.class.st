@@ -143,6 +143,12 @@ SPMReport >> colorMap [
 ]
 
 { #category : #accessing }
+SPMReport >> colorMap: aSPMColorMap [
+
+	colorMap := aSPMColorMap
+]
+
+{ #category : #accessing }
 SPMReport >> durationPrinter [
 
 	^ durationPrinter ifNil: [ 

@@ -54,6 +54,12 @@ SPMTallyNode >> allMethodNodes [
 ]
 
 { #category : #accessing }
+SPMTallyNode >> categoryName [
+
+	^ methodNode categoryName
+]
+
+{ #category : #accessing }
 SPMTallyNode >> children [
 	^ children
 ]

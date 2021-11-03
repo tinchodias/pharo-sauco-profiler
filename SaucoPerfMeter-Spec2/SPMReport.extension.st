@@ -53,7 +53,7 @@ SPMReport >> inspectionForMethods: aBuilder [
 
 { #category : #'*SaucoPerfMeter-Spec2' }
 SPMReport >> inspectionForNetRanking: aBuilder [
-	<inspectorPresentationOrder: 0.7 title: 'Net Ranking'>
+	<inspectorPresentationOrder: 0.7 title: 'Tally Leaves'>
 
 	| topTen |
 	topTen := ((self allTallyNodes reject:[:each | each netTally isZero ]) sorted: [ :a :b | a netTally > b netTally ]).

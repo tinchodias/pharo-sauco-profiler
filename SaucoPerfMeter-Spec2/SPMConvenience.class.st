@@ -22,9 +22,10 @@ SPMConvenience class >> codeIcon: aSPMCodeNode [
 SPMConvenience class >> codeNameMorphFor: aSPMCodeNode [
 	^ EpMorphFactory default rowWithAll: {
 			(self codeIcon: aSPMCodeNode) asMorph.
-			(aSPMCodeNode isRelevant
+			aSPMCodeNode fullName asMorph.
+			"(aSPMCodeNode isRelevant
 				ifTrue: [ aSPMCodeNode fullName asMorph ]
-				ifFalse: [ self shadowedTextFor: aSPMCodeNode fullName ]) }
+				ifFalse: [ self shadowedTextFor: aSPMCodeNode fullName ])" }
 ]
 
 { #category : #ui }
@@ -41,9 +42,13 @@ SPMConvenience class >> inspectionCodeList: aBuilder items: itemsCollection [
 			evaluated: [ :each | each relevanceDescription ])
 			width: 150;
 			yourself);
+		addColumn: ((SpImageTableColumn
+			evaluated: [ :each | self codeIcon: each ]) 
+			beNotExpandable;
+			yourself);
 		addColumn: ((SpStringTableColumn 
 			title: 'Name'
-			evaluated: [ :each | self codeNameMorphFor: each ])
+			evaluated: [ :each | each fullName ])
 			width: 400;
 			yourself);
 		addColumn: (SpStringTableColumn
