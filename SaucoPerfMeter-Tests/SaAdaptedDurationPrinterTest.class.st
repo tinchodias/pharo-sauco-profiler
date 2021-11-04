@@ -4,9 +4,6 @@ A SaAdaptedDurationPrinterTest is a test class for testing the behavior of SaAda
 Class {
 	#name : #SaAdaptedDurationPrinterTest,
 	#superclass : #SaDurationPrinterTest,
-	#instVars : [
-		'printer'
-	],
 	#category : #'SaucoPerfMeter-Tests'
 }
 

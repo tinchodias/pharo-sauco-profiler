@@ -4,8 +4,17 @@ A SaDurationPrinterTest is a test class for testing the behavior of SaDurationPr
 Class {
 	#name : #SaDurationPrinterTest,
 	#superclass : #TestCase,
+	#instVars : [
+		'printer'
+	],
 	#category : #'SaucoPerfMeter-Tests'
 }
+
+{ #category : #testing }
+SaDurationPrinterTest class >> isAbstract [
+
+	^ self = SaDurationPrinterTest
+]
 
 { #category : #test }
 SaDurationPrinterTest >> assertPrinting: aDuration equals: aString [
