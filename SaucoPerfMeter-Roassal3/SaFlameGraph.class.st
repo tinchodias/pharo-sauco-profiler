@@ -54,8 +54,8 @@ SaFlameGraph >> build [
 			when gap's x is non-zero, the children narrow on each level."
 		graphWidth: 1000;
 		leafWeight: #tally;
-		from: (tallyNodes select: self tallyNodeSelectBlock)
-			using: [ :n | n children select: self tallyNodeSelectBlock ].
+		from: (self nodesToShow: tallyNodes)
+			using: [ :n | self nodesToShow: n children ].
 	builder boxShape
 		cornerRadius: 1.
 
@@ -96,9 +96,19 @@ SaFlameGraph >> highlightInteraction [
 
 	^ RSHighlightable new
 		  highlightBorder: (RSBorder new
-				   width: 2;
-				   color: self theme secondarySelectionColor);
+				   width: 1;
+				   color: self theme textColor);
 		  yourself
+]
+
+{ #category : #private }
+SaFlameGraph >> nodesToShow: someNodes [
+	"Answer a filtered and sorted list of SPMTallyNodes.
+	They are sorted by #fullName to help comparing visually one profile run with another."
+
+	^ (someNodes select: self tallyNodeSelectBlock) 
+		sorted: [ :a :b | a methodNode fullName < b methodNode fullName ]
+
 ]
 
 { #category : #private }
