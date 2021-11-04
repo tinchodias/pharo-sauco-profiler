@@ -1,5 +1,7 @@
 # Sauco PerfMeter
 
+[![Test](https://github.com/tinchodias/pharo-sauco-profiler/actions/workflows/test.yml/badge.svg)](https://github.com/tinchodias/pharo-sauco-profiler/actions/workflows/test.yml)
+
 A user interface for the Pharo profilers. 
 
 
