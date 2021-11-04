@@ -120,7 +120,9 @@ SaFlameGraph >> popupInteraction [
 	popup shapeBuilder textBlock: [ :n | 
 		SaConvenience multipleLineDescriptionFor: n ].
 
-	popup shapeBuilder labelBuilder labelShape color: self theme textColor.
+	popup shapeBuilder labelBuilder labelShape color: Color black.
+	self flag: #todo. 
+		"Popup doesnt allow custom background so owe cant use here 'self theme textColor'".
 
 	^ popup
 ]

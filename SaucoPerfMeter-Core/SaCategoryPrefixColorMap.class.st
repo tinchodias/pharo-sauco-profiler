@@ -35,7 +35,7 @@ SaCategoryPrefixColorMap >> initialize [
 	super initialize.
 
 	colorAssociations := #().
-	defaultColor := theme baseColor.
+	defaultColor := theme baseColor translucent.
 
 ]
 
