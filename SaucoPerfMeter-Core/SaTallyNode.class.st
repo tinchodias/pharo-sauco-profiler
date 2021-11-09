@@ -78,6 +78,12 @@ SaTallyNode >> children: aCollectionOfTallyNodes [
 		each parent: self ].
 ]
 
+{ #category : #accessing }
+SaTallyNode >> fullName [
+
+	^ self methodNode fullName
+]
+
 { #category : #testing }
 SaTallyNode >> hasChildren [
 
@@ -134,11 +140,6 @@ SaTallyNode >> parent: anotherTallyNodeOrNil [
 	"Set the parent. We let parents the responsability of keeping the bi-directional relationship up-to-date (see #children:)."
 	
 	parent := anotherTallyNodeOrNil
-]
-
-{ #category : #accessing }
-SaTallyNode >> percentage [
-	^ 100.0 * self ratio
 ]
 
 { #category : #printing }

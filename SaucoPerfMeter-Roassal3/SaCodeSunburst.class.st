@@ -1,13 +1,15 @@
 Class {
 	#name : #SaCodeSunburst,
-	#superclass : #Object,
+	#superclass : #SaGraphBuilder,
+	#instVars : [
+		'categoryNodes'
+	],
 	#category : #'SaucoPerfMeter-Roassal3'
 }
 
 { #category : #building }
-SaCodeSunburst >> canvasFor: categoryNodes [
+SaCodeSunburst >> build [
 
-	| builder |
 	builder := RSSunburstBuilder new.
 
 	builder sliceShape 
@@ -21,14 +23,36 @@ SaCodeSunburst >> canvasFor: categoryNodes [
 	builder
 		weight: [ :shape |
 			shape model 
-				ifNil: [ categoryNodes sum: #ratio ] "Workaround: virtual node is added by builder"
-				ifNotNil: [ shape model ratio ] ];
-		from: (categoryNodes select: [:e | e ratio > 0 ])
-			using: [ :node |
-				node children select: [:e | e ratio > 0 ] ].
+				ifNil: [ categoryNodes sum: #netTally ] "Workaround: virtual node is added by builder"
+				ifNotNil: [ shape model netTally ] ];
+		from: (self nodesToShow: categoryNodes)
+			using: [ :node | self nodesToShow: node children ].
 
-	^ builder build
-		addInteraction: RSCanvasController new;
-		canvas
+	builder build.
+
+	builder shapes do: [ :shape | 
+		shape addInteraction: self popupInteraction.
+		shape removeInteractionIfPresent: RSDraggable.
+		shape color: shape model codeColor ].
+
+	builder canvas
+		color: self theme backgroundColor;
+		addInteraction: RSCanvasController new
+
+]
+
+{ #category : #accessing }
+SaCodeSunburst >> categoryNodes: someSaCategoryNodes [
+
+	categoryNodes := someSaCategoryNodes
+]
+
+{ #category : #building }
+SaCodeSunburst >> nodesToShow: someNodes [
+	"Answer a filtered and sorted list of SaCodeNodes.
+	They are sorted by #fullName to help comparing visually one profile run with another."
+
+	^ (someNodes select: [ :each | each netTallyRatio > 0 ] ) 
+		sorted: [ :a :b | a fullName < b fullName ]
 
 ]

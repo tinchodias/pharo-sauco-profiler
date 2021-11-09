@@ -36,6 +36,7 @@ SaMethodNode >> behaviorNode: anObject [
 
 { #category : #accessing }
 SaMethodNode >> calculatedNetTally [
+
 	^ tallyNodes inject: 0 into: [ :sum :each | sum + each netTally ]
 ]
 

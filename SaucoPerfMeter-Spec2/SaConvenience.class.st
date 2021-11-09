@@ -35,7 +35,7 @@ SaConvenience class >> inspectionCodeList: aBuilder items: itemsCollection [
 		items: itemsCollection asArray; "It doesn't work with Set, for example."
 		sortingBlock: [ :a :b | a netTally > b netTally ];
 		addColumn: ((SpImageTableColumn
-			evaluated: [ :each | self ratioIcon: each ratio ]) 
+			evaluated: [ :each | self ratioIcon: each netTallyRatio ]) 
 			beNotExpandable;
 			yourself);
 		addColumn: ((SpStringTableColumn 
@@ -57,20 +57,21 @@ SaConvenience class >> inspectionCodeList: aBuilder items: itemsCollection [
 ]
 
 { #category : #printing }
-SaConvenience class >> multipleLineDescriptionFor: aSaTallyNode [ 
+SaConvenience class >> multipleLineDescriptionFor: node [ 
 
 	^ '{1}
 Method: 		{2}
 Category: 	{3}' format: {
-		aSaTallyNode relevanceDescription.
-		aSaTallyNode methodNode fullName.
-		aSaTallyNode methodNode nameTags asCommaString.
+		node relevanceDescription.
+		node fullName.
+		node categoryName.
 		}
 ]
 
 { #category : #printing }
-SaConvenience class >> printPercentage: aNumber [
-	^ ((aNumber roundTo: 0.01) printShowingDecimalPlaces: 2), '%'
+SaConvenience class >> printRatio: aNumber [
+
+	^ (((100.0 * aNumber) roundTo: 0.01) printShowingDecimalPlaces: 2), '%'
 ]
 
 { #category : #ratio }
@@ -96,22 +97,6 @@ SaConvenience class >> ratioIcon: ratio [
 SaConvenience class >> ratioTopColor [
 
 	^ Color yellow
-]
-
-{ #category : #printing }
-SaConvenience class >> relevanceDescription: aNode [
-
-	| output |
-	output := '{1} [{2}]' format: { 
-			  (self printPercentage: aNode percentage).
-			  (aNode report durationPrinter print: aNode time) }.
-	
-	(aNode hasChildren and: [ aNode netTally > 0 ]) ifTrue: [
-		output := output, ' ({1} net)' format: {
-			aNode report durationPrinter print: aNode netTime } ].
-
-	^ output
-
 ]
 
 { #category : #ui }

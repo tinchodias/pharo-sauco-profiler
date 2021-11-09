@@ -17,11 +17,6 @@ SaBehaviorNode >> addMethod: aMethodNode [
 ]
 
 { #category : #accessing }
-SaBehaviorNode >> calculatedNetTally [
-	^ methodNodes inject: 0 into: [ :sum :each | sum + each netTally ]
-]
-
-{ #category : #accessing }
 SaBehaviorNode >> categoryName [
 	^ categoryNode name
 ]

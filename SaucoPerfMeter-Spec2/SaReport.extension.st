@@ -25,7 +25,7 @@ SaReport >> inspectionForMethodLeaves: aBuilder [
 	^ aBuilder newTable
 		items: self methodNodeLeaves;
 		addColumn: ((SpImageTableColumn
-			evaluated: [ :each | SaConvenience ratioIcon: each ratio ]) 
+			evaluated: [ :each | SaConvenience ratioIcon: each netTallyRatio ]) 
 			beNotExpandable;
 			yourself);
 		addColumn: ((SpStringTableColumn 
@@ -77,8 +77,8 @@ SaReport >> inspectionForNetRanking: aBuilder [
 			width: 400;
 			yourself);
 		addColumn: (SpStringTableColumn
-			title: 'Tags'
-			evaluated: [ :each | ' ' join: each methodNode nameTags ]);
+			title: 'Category'
+			evaluated: [ :each | each categoryName ]);
 		addColumn: (SpStringTableColumn
 			title: 'Is leaf?'
 			evaluated: [ :each | each hasChildren ifTrue: [ 'No' ] ifFalse: [ 'Yes' ] ]);
@@ -94,7 +94,7 @@ SaReport >> inspectionForTallyTree: aBuilder [
 
 	^ aBuilder newTree
 		hideColumnHeaders;
-		roots: (self rootTallyNodes sorted: sortingBlock);
+		roots: (rootTallyNodes sorted: sortingBlock);
 		expandRoots;
 		displayIcon: [ :each | SaConvenience ratioIcon: each ratio ];
 		display: [ :each | SaConvenience tallyNodeMorphFor: each ];

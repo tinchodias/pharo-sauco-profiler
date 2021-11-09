@@ -118,7 +118,7 @@ SaReport >> allBehaviorNodes [
 
 { #category : #accessing }
 SaReport >> allCategoryNodes [
-	^ (rootTallyNodes flatCollect: #allCategoryNodes) sorted: [:a :b | a ratio > b ratio ]
+	^ (rootTallyNodes flatCollect: #allCategoryNodes) sorted: [:a :b | a netTallyRatio > b netTallyRatio ]
 ]
 
 { #category : #accessing }

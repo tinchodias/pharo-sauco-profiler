@@ -2,18 +2,22 @@ Extension { #name : #SaReport }
 
 { #category : #'*SaucoPerfMeter-Roassal3' }
 SaReport >> inspectionCodeSunburstIn: aBuilder [
-	"<inspectorPresentationOrder: 0.6 title: 'Code Sunburst'>"
+"	<inspectorPresentationOrder: 0.6 title: 'Tally Distribution'>"
 	
-	self flag: #todo.  "DELETE?"
-
+	self flag: #todo. "Delete? wasn't useful"
+	
 	^ (aBuilder instantiate: SpRoassal3InspectorPresenter)
-		canvas: (SaCodeSunburst new canvasFor: self allCategoryNodes);
+		canvas: (SaCodeSunburst new
+			report: self;
+			categoryNodes: self allCategoryNodes;
+			build;
+			canvas);
 		yourself
 ]
 
 { #category : #'*SaucoPerfMeter-Roassal3' }
 SaReport >> inspectionForFlameGraph: aBuilder [
-	<inspectorPresentationOrder: 0.5 title: 'Flame graph'>
+	<inspectorPresentationOrder: 0.5 title: 'Flame graph (prune irrelevant children)'>
 
 	^ (aBuilder instantiate: SpRoassal3InspectorPresenter)
 		  canvas: (SaFlameGraph new

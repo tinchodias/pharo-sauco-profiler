@@ -33,14 +33,12 @@ SaMethodNode >> inspectionForTallyNodes: aBuilder [
 		addColumn: (SpStringTableColumn
 			title: 'Net Tally'
 			evaluated: [ :each | each netTally ]);
-		addColumn: ((SpStringTableColumn 
+		addColumn: (SpStringTableColumn 
 			title: 'Name'
-			evaluated: [ :each | SaConvenience codeNameMorphFor: each methodNode ])
-			width: 400;
-			yourself);
+			evaluated: [ :each | SaConvenience codeNameMorphFor: each methodNode ]);
 		addColumn: (SpStringTableColumn
-			title: 'Tags'
-			evaluated: [ :each | ' ' join: each methodNode nameTags ]);
+			title: 'Category'
+			evaluated: [ :each | each methodNode categoryName ]);
 		addColumn: (SpStringTableColumn
 			title: 'Is leaf?'
 			evaluated: [ :each | each hasChildren ifTrue: [ 'No' ] ifFalse: [ 'Yes' ] ]);

@@ -7,14 +7,16 @@ Class {
 	#instVars : [
 		'name',
 		'report',
-		'cachedTotalTally'
+		'cachedNetTally',
+		'cachedTally'
 	],
 	#category : #'SaucoPerfMeter-Core'
 }
 
 { #category : #accessing }
 SaCodeNode >> calculatedNetTally [
-	^ self subclassResponsibility
+
+	^ self children inject: 0 into: [ :sum :each | sum + each netTally ]
 ]
 
 { #category : #accessing }
@@ -42,7 +44,7 @@ SaCodeNode >> hasChildren [
 { #category : #testing }
 SaCodeNode >> isRelevant [
 
-	^ self ratio >= report minimumRelevantRatio
+	^ self netTallyRatio >= report minimumRelevantRatio
 ]
 
 { #category : #accessing }
@@ -58,12 +60,20 @@ SaCodeNode >> name: aString [
 
 { #category : #accessing }
 SaCodeNode >> netTally [
-	^ cachedTotalTally ifNil: [ cachedTotalTally := self calculatedNetTally ]
+	^ cachedNetTally ifNil: [ cachedNetTally := self calculatedNetTally ]
 ]
 
 { #category : #accessing }
-SaCodeNode >> percentage [
-	^ 100.0 * self ratio
+SaCodeNode >> netTallyRatio [
+	"Answer the ratio of my #netTally respect to report's #totalTally."
+
+	^ self netTally asFloat / report totalTally
+]
+
+{ #category : #accessing }
+SaCodeNode >> netTime [
+
+	^ self report totalTime * self netTallyRatio
 ]
 
 { #category : #printing }
@@ -77,13 +87,6 @@ SaCodeNode >> printOn: aStream [
 ]
 
 { #category : #accessing }
-SaCodeNode >> ratio [
-	"Answer the tally (or time) ratio of this node respect to report's total."
-
-	^ self netTally asFloat / report totalTally
-]
-
-{ #category : #accessing }
 SaCodeNode >> report [
 	^ report
 ]
@@ -91,9 +94,4 @@ SaCodeNode >> report [
 { #category : #accessing }
 SaCodeNode >> report: anObject [
 	report := anObject
-]
-
-{ #category : #accessing }
-SaCodeNode >> time [
-	^ self report totalTime * self ratio
 ]

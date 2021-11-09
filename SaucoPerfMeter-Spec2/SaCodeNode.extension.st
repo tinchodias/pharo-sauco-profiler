@@ -10,6 +10,7 @@ SaCodeNode >> nameTags [
 SaCodeNode >> relevanceDescription [
 
 	^ '{1} [{2}]' format: { 
-			  (SaConvenience printPercentage: self percentage).
-			  (report durationPrinter print: self time) }
+		  (SaConvenience printRatio: self netTallyRatio).
+		  (report durationPrinter print: self netTime)
+		}
 ]

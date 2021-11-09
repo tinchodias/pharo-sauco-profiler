@@ -1,11 +1,9 @@
 Class {
 	#name : #SaFlameGraph,
-	#superclass : #Object,
+	#superclass : #SaGraphBuilder,
 	#instVars : [
 		'tallyNodeSelectBlock',
-		'builder',
 		'tallyNodes',
-		'report',
 		'borderForBox'
 	],
 	#category : #'SaucoPerfMeter-Roassal3'
@@ -79,26 +77,9 @@ SaFlameGraph >> build [
 ]
 
 { #category : #accessing }
-SaFlameGraph >> canvas [
-	"Answerr the RSCanvas that was built previously by sending #build."
-
-	^ builder canvas
-]
-
-{ #category : #accessing }
 SaFlameGraph >> considerAllNodes [
 
 	self tallyNodeSelectBlock: [ :_ | true ]
-]
-
-{ #category : #private }
-SaFlameGraph >> highlightInteraction [
-
-	^ RSHighlightable new
-		  highlightBorder: (RSBorder new
-				   width: 1;
-				   color: self theme textColor);
-		  yourself
 ]
 
 { #category : #private }
@@ -109,34 +90,6 @@ SaFlameGraph >> nodesToShow: someNodes [
 	^ (someNodes select: self tallyNodeSelectBlock) 
 		sorted: [ :a :b | a methodNode fullName < b methodNode fullName ]
 
-]
-
-{ #category : #private }
-SaFlameGraph >> popupInteraction [
-
-	| popup |
-	popup := RSPopup new.
-
-	popup shapeBuilder textBlock: [ :n | 
-		SaConvenience multipleLineDescriptionFor: n ].
-
-	popup shapeBuilder labelBuilder labelShape color: Color black.
-	self flag: #todo. 
-		"Popup doesnt allow custom background so owe cant use here 'self theme textColor'".
-
-	^ popup
-]
-
-{ #category : #accessing }
-SaFlameGraph >> report [
-
-	^ report
-]
-
-{ #category : #accessing }
-SaFlameGraph >> report: aSaReport [
-
-	report := aSaReport
 ]
 
 { #category : #accessing }
@@ -161,10 +114,4 @@ SaFlameGraph >> tallyNodes [
 SaFlameGraph >> tallyNodes: aCollectionOfSaTallyNodes [
 
 	tallyNodes := aCollectionOfSaTallyNodes
-]
-
-{ #category : #private }
-SaFlameGraph >> theme [
-
-	^ report colorMap theme
 ]

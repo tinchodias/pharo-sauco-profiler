@@ -61,12 +61,12 @@ SaTallyNode >> relevanceDescription [
 
 	| output |
 	output := '{1} [{2}]' format: { 
-			  (SaConvenience printPercentage: self percentage).
+			  (SaConvenience printRatio: self ratio).
 			  (report durationPrinter print: self time) }.
 	
 	(self hasChildren and: [ self netTally > 0 ]) ifTrue: [
 		output := output, ' ({1} net)' format: {
-			self report durationPrinter print: self netTime } ].
+			report durationPrinter print: self netTime } ].
 
 	^ output
 

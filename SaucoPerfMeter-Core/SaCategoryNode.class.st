@@ -26,11 +26,6 @@ SaCategoryNode >> behaviorNodes: anObject [
 ]
 
 { #category : #accessing }
-SaCategoryNode >> calculatedNetTally [
-	^ behaviorNodes inject: 0 into: [ :sum :each | sum + each netTally ]
-]
-
-{ #category : #accessing }
 SaCategoryNode >> categoryName [
 	
 	^ name
