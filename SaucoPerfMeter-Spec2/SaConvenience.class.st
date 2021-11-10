@@ -83,12 +83,15 @@ SaConvenience class >> ratioBottomColor [
 { #category : #ratio }
 SaConvenience class >> ratioIcon: ratio [
 
-	^ (FormCanvas extent: 20 @ 10)
-		fillColor: self ratioBottomColor;
-		drawRectangle: (1 @ 1 extent: (ratio * 20) @ 10)
+	| width height |
+	width := 14.
+	height := 14.
+
+	^ (FormCanvas extent: width @ height)
+		drawRectangle: (1 asPoint extent: (ratio * width) @ height)
 			color: self ratioTopColor
 			borderWidth: 4
-			borderColor: self ratioTopColor;
+			borderColor: self ratioBottomColor;
 		form
 
 ]
