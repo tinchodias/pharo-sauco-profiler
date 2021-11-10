@@ -77,7 +77,7 @@ SaConvenience class >> printRatio: aNumber [
 { #category : #ratio }
 SaConvenience class >> ratioBottomColor [
 
-	^ Color darkGray
+	^ Smalltalk ui theme baseColor
 ]
 
 { #category : #ratio }
@@ -96,7 +96,7 @@ SaConvenience class >> ratioIcon: ratio [
 { #category : #ratio }
 SaConvenience class >> ratioTopColor [
 
-	^ Color yellow
+	^ 	Smalltalk ui theme textColor
 ]
 
 { #category : #ui }
