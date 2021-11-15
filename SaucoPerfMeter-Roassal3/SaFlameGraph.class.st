@@ -61,7 +61,9 @@ SaFlameGraph >> build [
 
 	builder shapes
 		addInteraction: self popupInteraction;
-		addInteraction: self highlightInteraction.
+		addInteraction: self highlightInteraction;
+		when: RSMouseDoubleClick
+			do: [ :e | e shape model inspect ].
 
 	builder shapes do: [ :shape | 
 		shape
