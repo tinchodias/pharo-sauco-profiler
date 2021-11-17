@@ -25,7 +25,7 @@ This project provides:
 ## Install
 
 In a Pharo 10 (Should work in 9.0, too)
-* First: Manually load full [Roassal3](https://github.com/ObjectProfile/Roassal3), and the `Roassal3-FlameGraph` package.
+* First: Manually load full [Roassal3](https://github.com/ObjectProfile/Roassal3) via World Menu -> Library -> Roassal3 -> Load full version (This will load `Roassal3-FlameGraph` package, a dependency).
 * Second: Evaluate the following script: 
 ~~~smalltalk
 Metacello new
