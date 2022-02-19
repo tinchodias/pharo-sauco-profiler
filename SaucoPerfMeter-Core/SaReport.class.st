@@ -86,6 +86,13 @@ SaReport class >> exampleZincGet [
 ]
 
 { #category : #convenience }
+SaReport class >> newWithASPFor: aDuration [
+	"Profile the system during aDuration."
+
+	^ self newWithASPOn: [ aDuration wait ]
+]
+
+{ #category : #convenience }
 SaReport class >> newWithASPOn: aBlock [
 	| profiler semaphore saucoReport |
 	semaphore := Semaphore new.
@@ -99,6 +106,13 @@ SaReport class >> newWithASPOn: aBlock [
 	semaphore wait.
 "	profiler doReport."
 	^ saucoReport
+]
+
+{ #category : #convenience }
+SaReport class >> newWithMTFor: aDuration [
+	"Profile the system during aDuration."
+
+	^ self newWithMTOn: [ aDuration wait ]
 ]
 
 { #category : #convenience }
