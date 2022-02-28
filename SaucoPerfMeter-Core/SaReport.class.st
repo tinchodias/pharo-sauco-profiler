@@ -81,6 +81,12 @@ SaReport class >> exampleWait [
 ]
 
 { #category : #examples }
+SaReport class >> exampleWorldFor5Seconds [
+	
+	(self newWithASPFor: 5 seconds) inspect
+]
+
+{ #category : #examples }
 SaReport class >> exampleZincGet [
 	self exampleAll: [ ZnEasy get: 'http://pharo.org/' ]
 ]
