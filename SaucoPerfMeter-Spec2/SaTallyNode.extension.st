@@ -2,7 +2,7 @@ Extension { #name : #SaTallyNode }
 
 { #category : #'*SaucoPerfMeter-Spec2' }
 SaTallyNode >> inspectionForAllParents: aBuilder [
-	<inspectorPresentationOrder: 0 title: 'Call Stack'>
+	<inspectorPresentationOrder: 0.2 title: 'Call Stack'>
 
 	^ aBuilder newTable
 		items: self withAllParents;
