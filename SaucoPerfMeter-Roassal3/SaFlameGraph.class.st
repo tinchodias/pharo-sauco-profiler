@@ -50,7 +50,7 @@ SaFlameGraph >> build [
 	builder
 		gap: 0@2; "Workaround to be more accurate: 
 			when gap's x is non-zero, the children narrow on each level."
-		graphWidth: 1000;
+		graphWidth: 2000;
 		leafWeight: #tally;
 		from: (self nodesToShow: tallyNodes)
 			using: [ :n | self nodesToShow: n children ].
