@@ -1,6 +1,16 @@
 Extension { #name : #SaReport }
 
 { #category : #'*SaucoPerfMeter-Roassal3' }
+SaReport >> asFlameGraph [
+
+	^ SaFlameGraph new
+	   report: self;
+	   tallyNodes: rootTallyNodes;
+	   build;
+	   canvas
+]
+
+{ #category : #'*SaucoPerfMeter-Roassal3' }
 SaReport >> inspectionCodeSunburstIn: aBuilder [
 "	<inspectorPresentationOrder: 0.6 title: 'Tally Distribution'>"
 	
@@ -20,10 +30,6 @@ SaReport >> inspectionForFlameGraph: aBuilder [
 	<inspectorPresentationOrder: 0.5 title: 'Flame graph (prune irrelevant children)'>
 
 	^ (aBuilder instantiate: SpRoassal3InspectorPresenter)
-		  canvas: (SaFlameGraph new
-				   report: self;
-				   tallyNodes: rootTallyNodes;
-				   build;
-				   canvas);
+		  canvas: self asFlameGraph;
 		  yourself
 ]
