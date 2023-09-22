@@ -48,14 +48,14 @@ SaFlameGraph >> build [
 
 	builder := RSFlameGraph new.
 	builder
-		gap: 0@2; "Workaround to be more accurate: 
+		gap: 0 @ 2;
+		"Workaround to be more accurate: 
 			when gap's x is non-zero, the children narrow on each level."
 		graphWidth: 2000;
 		leafWeight: #tally;
 		from: (self nodesToShow: tallyNodes)
-			using: [ :n | self nodesToShow: n children ].
-	builder boxShape
-		cornerRadius: 1.
+		using: [ :n | self nodesToShow: n children ].
+	builder boxShape cornerRadius: 1.
 
 	builder build.
 
@@ -63,9 +63,10 @@ SaFlameGraph >> build [
 		addInteraction: self popupInteraction;
 		addInteraction: self highlightInteraction;
 		when: RSMouseDoubleClick
-			do: [ :e | e shape model inspect ].
+		do: [ :e | e shape model inspect ]
+		for: self.
 
-	builder shapes do: [ :shape | 
+	builder shapes do: [ :shape |
 		shape
 			border: self borderForBox;
 			color: shape model methodNode codeColor ].
@@ -75,7 +76,6 @@ SaFlameGraph >> build [
 	builder canvas
 		color: self theme backgroundColor;
 		addInteraction: RSCanvasController new
-
 ]
 
 { #category : #accessing }
