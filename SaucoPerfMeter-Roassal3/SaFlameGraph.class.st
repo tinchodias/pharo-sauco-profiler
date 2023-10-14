@@ -64,7 +64,7 @@ SaFlameGraph >> build [
 		addInteraction: self highlightInteraction;
 		when: RSMouseDoubleClick
 		do: [ :e | e shape model inspect ]
-		for: self.
+"		for: self".
 
 	builder shapes do: [ :shape |
 		shape
