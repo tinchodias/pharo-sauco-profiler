@@ -52,24 +52,24 @@ SaFlameGraph >> build [
 		"Workaround to be more accurate: 
 			when gap's x is non-zero, the children narrow on each level."
 		graphWidth: 2000;
-		leafWeight: #tally;
-		from: (self nodesToShow: tallyNodes)
-		using: [ :n | self nodesToShow: n children ].
-	builder boxShape cornerRadius: 1.
+		modelWeight: [ :tallyNode | tallyNode tally ].
 
-	builder build.
-
-	builder shapes
+	builder boxShape
+		cornerRadius: 1;
+		border: self borderForBox;
 		addInteraction: self popupInteraction;
 		addInteraction: self highlightInteraction;
 		when: RSMouseDoubleClick
-		do: [ :e | e shape model inspect ]
-"		for: self".
+			do: [ :e | e shape model inspect ]
+			"for: self".
+
+	builder
+		from: (self nodesToShow: tallyNodes)
+			using: [ :n | self nodesToShow: n children ];
+		build.
 
 	builder shapes do: [ :shape |
-		shape
-			border: self borderForBox;
-			color: shape model methodNode codeColor ].
+		shape color: shape model methodNode codeColor ].
 
 	self addInnerLabels.
 
