@@ -142,6 +142,11 @@ SaTallyNode >> parent: anotherTallyNodeOrNil [
 	parent := anotherTallyNodeOrNil
 ]
 
+{ #category : #accessing }
+SaTallyNode >> parentRatio [
+	^ tally asFloat / self parent tally
+]
+
 { #category : #printing }
 SaTallyNode >> printOn: aStream [
 

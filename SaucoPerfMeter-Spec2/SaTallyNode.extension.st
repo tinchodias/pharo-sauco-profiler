@@ -60,8 +60,9 @@ SaTallyNode >> inspectionForSource: aBuilder [
 SaTallyNode >> relevanceDescription [
 
 	| output |
-	output := '{1} [{2}]' format: { 
+	output := '{1} of total ({2} of parent) -- {3}' format: { 
 			  (SaConvenience printRatio: self ratio).
+			  (SaConvenience printRatio: self parentRatio).
 			  (report durationPrinter print: self time) }.
 	
 	(self hasChildren and: [ self netTally > 0 ]) ifTrue: [
