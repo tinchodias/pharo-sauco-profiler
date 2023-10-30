@@ -59,16 +59,25 @@ SaTallyNode >> inspectionForSource: aBuilder [
 { #category : #'*SaucoPerfMeter-Spec2' }
 SaTallyNode >> relevanceDescription [
 
-	| output |
-	output := '{1} of total ({2} of parent) -- {3}' format: { 
-			  (SaConvenience printRatio: self ratio).
-			  (SaConvenience printRatio: self parentRatio).
-			  (report durationPrinter print: self time) }.
-	
-	(self hasChildren and: [ self netTally > 0 ]) ifTrue: [
-		output := output, ' ({1} net)' format: {
-			report durationPrinter print: self netTime } ].
+	^ String streamContents: [ :stream |
+		stream
+			<< (SaConvenience printRatio: self ratio);
+			<< ' of total'.
 
-	^ output
+		self hasParent ifTrue: [
+			stream
+				<< ' (';
+				<< (SaConvenience printRatio: self parentRatio);
+				<< ' of parent)' ].
 
+		stream
+			<< ' -- ';
+			<< (report durationPrinter print: self time).
+
+		(self hasChildren and: [ self netTally > 0 ]) ifTrue: [
+			stream
+				<< ' (';
+				<< (report durationPrinter print: self netTime);
+				<< ' net)' ].
+		 ]
 ]

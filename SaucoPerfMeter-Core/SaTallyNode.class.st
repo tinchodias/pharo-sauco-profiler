@@ -91,6 +91,12 @@ SaTallyNode >> hasChildren [
 ]
 
 { #category : #testing }
+SaTallyNode >> hasParent [
+
+	^ parent isNotNil
+]
+
+{ #category : #testing }
 SaTallyNode >> isRelevant [
 
 	^ self ratio >= report minimumRelevantRatio
