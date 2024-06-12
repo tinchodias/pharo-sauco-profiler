@@ -16,20 +16,16 @@ SaReport >> inspectionCodeSunburstIn: aBuilder [
 	
 	self flag: #todo. "Delete? wasn't useful"
 	
-	^ (aBuilder instantiate: SpRoassal3InspectorPresenter)
-		canvas: (SaCodeSunburst new
+	^ (SaCodeSunburst new
 			report: self;
 			categoryNodes: self allCategoryNodes;
 			build;
-			canvas);
-		yourself
+			canvas) asPresenter
 ]
 
 { #category : '*SaucoPerfMeter-Roassal3' }
 SaReport >> inspectionForFlameGraph: aBuilder [
 	<inspectorPresentationOrder: 0.5 title: 'Flame graph (prune irrelevant children)'>
 
-	^ (aBuilder instantiate: SpRoassal3InspectorPresenter)
-		  canvas: self asFlameGraph;
-		  yourself
+	^ self asFlameGraph asPresenter
 ]
