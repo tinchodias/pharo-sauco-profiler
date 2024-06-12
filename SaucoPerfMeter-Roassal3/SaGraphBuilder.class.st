@@ -1,27 +1,28 @@
 Class {
-	#name : #SaGraphBuilder,
-	#superclass : #Object,
+	#name : 'SaGraphBuilder',
+	#superclass : 'Object',
 	#instVars : [
 		'builder',
 		'report'
 	],
-	#category : #'SaucoPerfMeter-Roassal3'
+	#category : 'SaucoPerfMeter-Roassal3',
+	#package : 'SaucoPerfMeter-Roassal3'
 }
 
-{ #category : #building }
+{ #category : 'building' }
 SaGraphBuilder >> build [
 
 	^ self subclassResponsibility
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SaGraphBuilder >> canvas [
 	"Answer a RSCanvas, that was built previously by sending #build (precondition)."
 
 	^ builder canvas
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SaGraphBuilder >> highlightInteraction [
 
 	^ RSHighlightable new
@@ -31,7 +32,7 @@ SaGraphBuilder >> highlightInteraction [
 		  yourself
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SaGraphBuilder >> popupInteraction [
 
 	| popup |
@@ -48,19 +49,19 @@ SaGraphBuilder >> popupInteraction [
 	^ popup
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SaGraphBuilder >> report [
 
 	^ report
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SaGraphBuilder >> report: aSaReport [
 
 	report := aSaReport
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SaGraphBuilder >> theme [
 
 	^ report colorMap theme

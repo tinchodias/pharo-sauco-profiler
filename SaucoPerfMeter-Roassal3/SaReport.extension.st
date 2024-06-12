@@ -1,6 +1,6 @@
-Extension { #name : #SaReport }
+Extension { #name : 'SaReport' }
 
-{ #category : #'*SaucoPerfMeter-Roassal3' }
+{ #category : '*SaucoPerfMeter-Roassal3' }
 SaReport >> asFlameGraph [
 
 	^ SaFlameGraph new
@@ -10,7 +10,7 @@ SaReport >> asFlameGraph [
 	   canvas
 ]
 
-{ #category : #'*SaucoPerfMeter-Roassal3' }
+{ #category : '*SaucoPerfMeter-Roassal3' }
 SaReport >> inspectionCodeSunburstIn: aBuilder [
 "	<inspectorPresentationOrder: 0.6 title: 'Tally Distribution'>"
 	
@@ -25,7 +25,7 @@ SaReport >> inspectionCodeSunburstIn: aBuilder [
 		yourself
 ]
 
-{ #category : #'*SaucoPerfMeter-Roassal3' }
+{ #category : '*SaucoPerfMeter-Roassal3' }
 SaReport >> inspectionForFlameGraph: aBuilder [
 	<inspectorPresentationOrder: 0.5 title: 'Flame graph (prune irrelevant children)'>
 

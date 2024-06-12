@@ -1,15 +1,16 @@
 Class {
-	#name : #SaFlameGraph,
-	#superclass : #SaGraphBuilder,
+	#name : 'SaFlameGraph',
+	#superclass : 'SaGraphBuilder',
 	#instVars : [
 		'tallyNodeSelectBlock',
 		'tallyNodes',
 		'borderForBox'
 	],
-	#category : #'SaucoPerfMeter-Roassal3'
+	#category : 'SaucoPerfMeter-Roassal3',
+	#package : 'SaucoPerfMeter-Roassal3'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 SaFlameGraph >> addInnerLabels [
 	"Add labels to each rectangle, when they fit inside."	
 
@@ -32,7 +33,7 @@ SaFlameGraph >> addInnerLabels [
 
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SaFlameGraph >> borderForBox [
 
 	^ borderForBox ifNil: [
@@ -43,7 +44,7 @@ SaFlameGraph >> borderForBox [
 
 ]
 
-{ #category : #building }
+{ #category : 'building' }
 SaFlameGraph >> build [
 
 	builder := RSFlameGraph new.
@@ -61,7 +62,7 @@ SaFlameGraph >> build [
 		addInteraction: self highlightInteraction;
 		when: RSMouseDoubleClick
 			do: [ :e | e shape model inspect ]
-			"for: self".
+			for: self.
 
 	builder
 		from: (self nodesToShow: tallyNodes)
@@ -78,13 +79,13 @@ SaFlameGraph >> build [
 		addInteraction: RSCanvasController new
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SaFlameGraph >> considerAllNodes [
 
 	self tallyNodeSelectBlock: [ :_ | true ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 SaFlameGraph >> nodesToShow: someNodes [
 	"Answer a filtered and sorted list of SPMTallyNodes.
 	They are sorted by #fullName to help comparing visually one profile run with another."
@@ -94,25 +95,25 @@ SaFlameGraph >> nodesToShow: someNodes [
 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SaFlameGraph >> tallyNodeSelectBlock [
 
 	^ tallyNodeSelectBlock ifNil: [ tallyNodeSelectBlock := #isRelevant ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SaFlameGraph >> tallyNodeSelectBlock: aUnaryBlockClosure [
 
 	tallyNodeSelectBlock := aUnaryBlockClosure
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SaFlameGraph >> tallyNodes [
 
 	^ tallyNodes
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SaFlameGraph >> tallyNodes: aCollectionOfSaTallyNodes [
 
 	tallyNodes := aCollectionOfSaTallyNodes

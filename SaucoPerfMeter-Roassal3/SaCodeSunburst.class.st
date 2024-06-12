@@ -1,13 +1,14 @@
 Class {
-	#name : #SaCodeSunburst,
-	#superclass : #SaGraphBuilder,
+	#name : 'SaCodeSunburst',
+	#superclass : 'SaGraphBuilder',
 	#instVars : [
 		'categoryNodes'
 	],
-	#category : #'SaucoPerfMeter-Roassal3'
+	#category : 'SaucoPerfMeter-Roassal3',
+	#package : 'SaucoPerfMeter-Roassal3'
 }
 
-{ #category : #building }
+{ #category : 'building' }
 SaCodeSunburst >> build [
 
 	builder := RSSunburstBuilder new.
@@ -41,13 +42,13 @@ SaCodeSunburst >> build [
 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 SaCodeSunburst >> categoryNodes: someSaCategoryNodes [
 
 	categoryNodes := someSaCategoryNodes
 ]
 
-{ #category : #building }
+{ #category : 'building' }
 SaCodeSunburst >> nodesToShow: someNodes [
 	"Answer a filtered and sorted list of SaCodeNodes.
 	They are sorted by #fullName to help comparing visually one profile run with another."
