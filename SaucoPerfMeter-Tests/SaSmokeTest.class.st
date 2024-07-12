@@ -10,8 +10,13 @@ SaSmokeTest >> assertValidReport: aSaReport [
 	self assert: aSaReport totalTally > 0.
 	self assert: aSaReport totalTime > 0 seconds.
 	self deny: aSaReport rootTallyNodes isEmpty.
-	self deny: aSaReport tallyLeaves isEmpty
+	self deny: aSaReport tallyLeaves isEmpty.
 
+	aSaReport inspectionContexts do: [ :each |
+		self
+			shouldnt: [ each basicNewInspectionPresenter ]
+			raise: Exception
+			description: 'Error inspecting: #', each methodSelector asString ]
 ]
 
 { #category : #tests }
