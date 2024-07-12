@@ -16,6 +16,10 @@ BaselineOfSaucoPerfMeter >> baseline: spec [
 			package: 'SaucoPerfMeter-Roassal3'
 				with: [ spec requires: #( 'SaucoPerfMeter-Spec2' ) ];
 			package: 'SaucoPerfMeter-Tests'
-				with: [ spec requires: #( 'SaucoPerfMeter-Core' ) ] ]
+				with: [ spec requires: #( 'SaucoPerfMeter-Core' ) ] ].
 
+	spec for: #'pharo11.x' do: [
+		spec
+			package: 'SaucoPerfMeter-Pharo11'
+			   with: [ spec requires: 'SaucoPerfMeter-Roassal3' ] ]
 ]
